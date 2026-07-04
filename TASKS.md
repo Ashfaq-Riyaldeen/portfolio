@@ -8,7 +8,7 @@
 ## Overall Progress
 
 ```
-████████████████████████████░░  81 / 88 tasks (~92%)
+████████████████████████████░░  83 / 88 tasks (~94%)
 ```
 
 | Phase | Status | Progress |
@@ -19,7 +19,7 @@
 | 3 · Detail Pages | ✅ Complete | 3/3 |
 | 4 · Supabase Backend & Admin Panel | ✅ Complete | 25/25 |
 | 5 · Polish | ✅ Complete | 8/8 |
-| 6 · Launch | ⏳ Not started | 0/7 |
+| 6 · Launch | 🔨 In progress | 2/7 |
 
 ---
 
@@ -138,14 +138,14 @@
 - [x] Performance pass — Supabase preconnect, lazy images, ISR caching, font swap *(run Lighthouse on the live Vercel URL during the Phase 6 smoke test)*
 - [x] Mobile pass — responsive sections, horizontal-overflow guard, browser theme color *(final eyeball on a real phone at launch)*
 
-## Phase 6 · Launch — ⏳ 0/7
+## Phase 6 · Launch — 🔨 2/7
 
-- [ ] **👤 you** — GitHub account/repo (guided)
+- [x] GitHub repo — public at [github.com/Ashfaq-Riyaldeen/portfolio](https://github.com/Ashfaq-Riyaldeen/portfolio), commits authored by Ashfaq only
 - [ ] **👤 you** — Vercel account + connect repo (guided)
 - [ ] **👤 you** — Resend account for email notifications (guided)
 - [ ] Production env vars configured on Vercel
 - [ ] Live smoke test — every section, admin CRUD, contact form
-- [ ] **Owner's guide** — how to use your admin panel
+- [x] **Owner's guide** — [OWNERS_GUIDE.md](./OWNERS_GUIDE.md): daily tasks, field cheat-sheet, troubleshooting
 - [ ] **👤 you** — replace placeholder content with your real projects, certificates, photo, resume
 
 ---
