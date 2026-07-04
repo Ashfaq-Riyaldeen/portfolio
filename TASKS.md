@@ -8,7 +8,7 @@
 ## Overall Progress
 
 ```
-████████████████████████████░░  83 / 88 tasks (~94%)
+█████████████████████████████░  87 / 88 tasks (~99%)
 ```
 
 | Phase | Status | Progress |
@@ -19,7 +19,7 @@
 | 3 · Detail Pages | ✅ Complete | 3/3 |
 | 4 · Supabase Backend & Admin Panel | ✅ Complete | 25/25 |
 | 5 · Polish | ✅ Complete | 8/8 |
-| 6 · Launch | 🔨 In progress | 2/7 |
+| 6 · Launch | 🔨 In progress | 6/7 |
 
 ---
 
@@ -138,16 +138,16 @@
 - [x] Performance pass — Supabase preconnect, lazy images, ISR caching, font swap *(run Lighthouse on the live Vercel URL during the Phase 6 smoke test)*
 - [x] Mobile pass — responsive sections, horizontal-overflow guard, browser theme color *(final eyeball on a real phone at launch)*
 
-## Phase 6 · Launch — 🔨 2/7
+## Phase 6 · Launch — 🔨 6/7
 
 - [x] GitHub repo — public at [github.com/Ashfaq-Riyaldeen/portfolio](https://github.com/Ashfaq-Riyaldeen/portfolio), commits authored by Ashfaq only
-- [ ] **👤 you** — Vercel account + connect repo (guided)
-- [ ] **👤 you** — Resend account for email notifications (guided)
-- [ ] Production env vars configured on Vercel
-- [ ] Live smoke test — every section, admin CRUD, contact form
+- [x] Vercel — deployed at [portfolio-liart-omega-cshrh53gjp.vercel.app](https://portfolio-liart-omega-cshrh53gjp.vercel.app); pushes to `main` auto-deploy
+- [x] Resend — email notifications verified: contact-form messages arrive in Gmail
+- [x] Production env vars on Vercel — Supabase ×2, site URL, notification email, Resend key
+- [x] Live smoke test — home/projects/sitemap/robots/404/admin guard/contact→inbox→email all verified on production
 - [x] **Owner's guide** — [OWNERS_GUIDE.md](./OWNERS_GUIDE.md): daily tasks, field cheat-sheet, troubleshooting
 - [ ] **👤 you** — replace placeholder content with your real projects, certificates, photo, resume
 
 ---
 
-**Next up:** Phase 6 — launch! GitHub repo → Vercel deploy → Resend email → live smoke test → owner's guide. Most steps need **you** (creating the free accounts); Claude will guide each one click by click.
+**🚀 The site is LIVE:** [portfolio-liart-omega-cshrh53gjp.vercel.app](https://portfolio-liart-omega-cshrh53gjp.vercel.app) — one task left, and it's all yours: open [/admin](https://portfolio-liart-omega-cshrh53gjp.vercel.app/admin) and replace the placeholder projects/certificates with the real thing ([OWNERS_GUIDE.md](./OWNERS_GUIDE.md) shows how).
