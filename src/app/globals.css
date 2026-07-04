@@ -1,26 +1,189 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ── Palette · dark futuristic ─────────────────────────── */
+  --color-background: #05050a;
+  --color-surface: #0d0d14;
+  --color-surface-2: #12121c;
+  --color-foreground: #f4f4f5;
+  --color-muted: #a1a1aa;
+  --color-subtle: #52525b;
+  --color-primary: #7c3aed;
+  --color-primary-bright: #a78bfa;
+  --color-secondary: #22d3ee;
+  --color-accent: #e879f9;
+  --color-line: rgba(255, 255, 255, 0.08);
+
+  /* ── Typography ────────────────────────────────────────── */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif,
+    sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "Cascadia Code",
+    monospace;
+
+  /* ── Motion ────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(124, 58, 237, 0.4);
+  color: #f4f4f5;
+}
+
+/* Visible keyboard-focus ring everywhere (inputs opt out via focus:outline-none + ring) */
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Thin dark scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ── Utilities ────────────────────────────────────────────── */
+
+/* Signature gradient text: violet → fuchsia → cyan */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #a78bfa 0%,
+    #e879f9 45%,
+    #22d3ee 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass panel */
+@utility glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Soft violet glow */
+@utility glow-primary {
+  box-shadow: 0 0 48px -10px rgba(124, 58, 237, 0.55);
+}
+
+/* Soft cyan glow */
+@utility glow-secondary {
+  box-shadow: 0 0 48px -10px rgba(34, 211, 238, 0.4);
+}
+
+/* Infinite marquee track (content must be duplicated once inside) */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* ── Preloader ────────────────────────────────────────────────
+   Timing is pure CSS so the overlay always clears, even without JS.
+   JS only handles the once-per-session skip (html.preloader-skip). */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  background: #05050a;
+  animation: preloader-exit 0.6s var(--ease-out-expo) 1.9s forwards;
+}
+.preloader-skip .preloader {
+  display: none;
+}
+@keyframes preloader-exit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.preloader-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.55em);
+  animation: preloader-letter 0.55s var(--ease-out-expo) forwards;
+}
+@keyframes preloader-letter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.preloader-bar {
+  width: 180px;
+  height: 2px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+.preloader-bar::after {
+  content: "";
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #a78bfa, #e879f9, #22d3ee);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: preloader-bar 1.7s var(--ease-out-expo) 0.15s forwards;
+}
+@keyframes preloader-bar {
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
+
+/* Faint blueprint grid backdrop (hero) */
+@utility bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
 }

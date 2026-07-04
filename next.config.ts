@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      // YouTube video thumbnails (lite embed facade)
+      { protocol: "https", hostname: "i.ytimg.com" },
+      // Supabase Storage (Phase 4 — uploaded images/certificates)
+      { protocol: "https", hostname: "*.supabase.co" },
+    ],
+  },
 };
 
 export default nextConfig;
