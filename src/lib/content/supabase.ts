@@ -61,7 +61,17 @@ function publicClient() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { auth: { persistSession: false, autoRefreshToken: false } },
+    {
+      auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        // Next's fetch cache persists across builds (locally and in Vercel's
+        // build cache); without an expiry a rebuild can ship stale content.
+        // A short revalidate keeps builds fresh while pages stay prerenderable;
+        // admin saves still publish instantly via revalidatePath.
+        fetch: (input, init) =>
+          fetch(input, { ...init, next: { revalidate: 60 } }),
+      },
+    },
   );
 }
 

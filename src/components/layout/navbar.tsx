@@ -22,6 +22,12 @@ interface NavbarProps {
   name: string;
 }
 
+/**
+ * The desktop pill fits ~7 links before it overflows the viewport; the rest
+ * stay reachable through the overlay menu (all links, always).
+ */
+const MAX_PILL_LINKS = 7;
+
 /** Monogram from a full name: "Ashfaq Riyaldeen" → "AR" */
 function monogram(name: string) {
   return name
@@ -68,6 +74,9 @@ export function Navbar({ links, name }: NavbarProps) {
 
   const href = (id: string) => (onHome ? `#${id}` : `/#${id}`);
 
+  const pillLinks = links.slice(0, MAX_PILL_LINKS);
+  const hasOverflow = links.length > MAX_PILL_LINKS;
+
   return (
     <>
       <motion.header
@@ -87,9 +96,9 @@ export function Navbar({ links, name }: NavbarProps) {
             <span className="text-secondary">.</span>
           </a>
 
-          {/* Desktop links */}
+          {/* Desktop links — first few sections; the overlay menu has them all */}
           <ul className="hidden items-center gap-1 lg:flex">
-            {links.map((link) => (
+            {pillLinks.map((link) => (
               <li key={link.id}>
                 <a
                   href={href(link.id)}
@@ -111,27 +120,32 @@ export function Navbar({ links, name }: NavbarProps) {
             ))}
           </ul>
 
-          <a
-            href={href("contact")}
-            className="hidden rounded-full bg-gradient-to-r from-primary to-secondary px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 lg:block"
-          >
-            Let&apos;s Talk
-          </a>
+          <div className="flex items-center gap-2">
+            <a
+              href={href("contact")}
+              className="hidden rounded-full bg-gradient-to-r from-primary to-secondary px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 lg:block"
+            >
+              Let&apos;s Talk
+            </a>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="glass flex size-10 items-center justify-center rounded-full text-foreground lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+            {/* Menu button — always on mobile; on desktop only when links overflow the pill */}
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className={cn(
+                "glass flex size-10 items-center justify-center rounded-full text-foreground",
+                !hasOverflow && "lg:hidden",
+              )}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+            >
+              {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </nav>
       </motion.header>
 
-      {/* Mobile overlay menu */}
+      {/* Overlay menu — every section, on any screen size */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -139,7 +153,7 @@ export function Navbar({ links, name }: NavbarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 bg-background/90 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 overflow-y-auto bg-background/90 backdrop-blur-xl"
           >
             <nav className="flex h-full flex-col items-center justify-center gap-2 px-8">
               {links.map((link, i) => (
