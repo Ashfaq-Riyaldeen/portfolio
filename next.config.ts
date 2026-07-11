@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // three's root export is a big barrel — import only what's used
+    optimizePackageImports: ["three"],
+  },
   images: {
     remotePatterns: [
       // YouTube video thumbnails (lite embed facade)

@@ -1,8 +1,9 @@
 "use client";
 
 import { Send } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useRef } from "react";
 import { Magnetic } from "@/components/motion/magnetic";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { sendContactMessage, type ContactState } from "@/lib/actions/contact";
 
 interface ContactFormProps {
@@ -14,6 +15,72 @@ const inputClasses =
 
 const initialState: ContactState = { ok: false };
 
+/** Total length of the checkmark path — drives the stroke draw. */
+const CHECK_LENGTH = 20;
+
+/** Success badge: the circle pops in, the check draws itself, glow pulses. */
+function SuccessCheck() {
+  const badgeRef = useRef<HTMLSpanElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap
+          .timeline()
+          .fromTo(
+            badgeRef.current,
+            { scale: 0.4, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" },
+          )
+          .fromTo(
+            "[data-check]",
+            { strokeDashoffset: CHECK_LENGTH },
+            { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" },
+            "-=0.15",
+          )
+          .fromTo(
+            badgeRef.current,
+            { boxShadow: "0 0 0px 0px rgba(167, 139, 250, 0)" },
+            {
+              boxShadow: "0 0 46px 6px rgba(167, 139, 250, 0.55)",
+              duration: 0.45,
+              yoyo: true,
+              repeat: 1,
+              ease: "power1.inOut",
+            },
+            "-=0.25",
+          );
+      });
+    },
+    { scope: badgeRef },
+  );
+
+  return (
+    <span
+      ref={badgeRef}
+      className="mx-auto flex size-14 items-center justify-center rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        className="size-7"
+        fill="none"
+        stroke="white"
+        strokeWidth={2.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path
+          data-check
+          d="M5 12.5l4.5 4.5L19 7.5"
+          strokeDasharray={CHECK_LENGTH}
+        />
+      </svg>
+    </span>
+  );
+}
+
 /**
  * Contact form. Submits to a server action that stores the message in the
  * admin inbox and (when Resend is configured) emails a notification.
@@ -24,9 +91,7 @@ export function ContactForm({ toEmail }: ContactFormProps) {
   if (state.ok) {
     return (
       <div className="glass rounded-3xl p-10 text-center sm:p-14">
-        <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30">
-          <Send className="size-6 text-white" />
-        </span>
+        <SuccessCheck />
         <h3 className="mt-6 font-display text-xl font-bold">Message sent!</h3>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
           Thanks for reaching out — I read every message and I&apos;ll get back to

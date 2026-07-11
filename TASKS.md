@@ -141,7 +141,7 @@
 ## Phase 6 · Launch — 🔨 6/7
 
 - [x] GitHub repo — public at [github.com/Ashfaq-Riyaldeen/portfolio](https://github.com/Ashfaq-Riyaldeen/portfolio), commits authored by Ashfaq only
-- [x] Vercel — deployed at [portfolio-liart-omega-cshrh53gjp.vercel.app](https://portfolio-liart-omega-cshrh53gjp.vercel.app); pushes to `main` auto-deploy
+- [x] Vercel — deployed at [ashfaq-riyaldeen.vercel.app](https://ashfaq-riyaldeen.vercel.app); pushes to `main` auto-deploy
 - [x] Resend — email notifications verified: contact-form messages arrive in Gmail
 - [x] Production env vars on Vercel — Supabase ×2, site URL, notification email, Resend key
 - [x] Live smoke test — home/projects/sitemap/robots/404/admin guard/contact→inbox→email all verified on production
@@ -150,4 +150,10 @@
 
 ---
 
-**🚀 The site is LIVE:** [portfolio-liart-omega-cshrh53gjp.vercel.app](https://portfolio-liart-omega-cshrh53gjp.vercel.app) — one task left, and it's all yours: open [/admin](https://portfolio-liart-omega-cshrh53gjp.vercel.app/admin) and replace the placeholder projects/certificates with the real thing ([OWNERS_GUIDE.md](./OWNERS_GUIDE.md) shows how).
+**🚀 The site is LIVE:** [ashfaq-riyaldeen.vercel.app](https://ashfaq-riyaldeen.vercel.app) — one task left, and it's all yours: open [/admin](https://ashfaq-riyaldeen.vercel.app/admin) and replace the placeholder projects/certificates with the real thing ([OWNERS_GUIDE.md](./OWNERS_GUIDE.md) shows how).
+
+## Post-launch · 2026-07-11
+
+- [x] Domain renamed to [ashfaq-riyaldeen.vercel.app](https://ashfaq-riyaldeen.vercel.app); `NEXT_PUBLIC_SITE_URL` updated; sitemap/robots/og fixed
+- [x] Google Search Console verified (file in `public/`, never delete) + sitemap submitted; homepage indexed
+- [x] **Animation upgrade** — GSAP (ScrollTrigger/SplitText/ScrambleText) layered over motion + Lenis: char-reveal headings site-wide, hero scroll-away parallax + name char intro + role decode cycler, project-cover parallax, velocity-reactive skills marquee, footer reveal, 404 glitch, contact-success drawn checkmark; lazy desktop-only React Three Fiber 3D particle hero (2D canvas fallback on mobile/reduced-motion/weak GPUs)

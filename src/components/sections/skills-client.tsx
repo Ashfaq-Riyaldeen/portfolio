@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import type { SkillCategory } from "@/lib/content";
 
 function slugify(text: string) {
@@ -10,6 +12,69 @@ function slugify(text: string) {
 
 export function SkillsClient({ categories }: { categories: SkillCategory[] }) {
   const allSkills = categories.flatMap((c) => c.skills.map((s) => s.name));
+
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // Marquee that lives with the page: cruises at its own pace, surges (or
+  // reverses) with scroll flings, relaxes back, and pauses under the cursor.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const wrap = wrapRef.current;
+        const track = trackRef.current;
+        if (!wrap || !track) return;
+
+        const loop = gsap.to(track, {
+          xPercent: -50,
+          duration: 40,
+          ease: "none",
+          repeat: -1,
+        });
+        let hovered = false;
+
+        const st = ScrollTrigger.create({
+          onUpdate: (self) => {
+            if (hovered) return;
+            const velocity = gsap.utils.clamp(-3, 3, self.getVelocity() / 250);
+            if (Math.abs(velocity) < 1) return;
+            gsap.to(loop, {
+              timeScale: velocity,
+              duration: 0.25,
+              overwrite: true,
+              onComplete: () => {
+                gsap.to(loop, {
+                  timeScale: 1,
+                  duration: 1.2,
+                  ease: "power1.out",
+                });
+              },
+            });
+          },
+        });
+
+        const pause = () => {
+          hovered = true;
+          gsap.to(loop, { timeScale: 0, duration: 0.35, overwrite: true });
+        };
+        const resume = () => {
+          hovered = false;
+          gsap.to(loop, { timeScale: 1, duration: 0.35, overwrite: true });
+        };
+        wrap.addEventListener("pointerenter", pause);
+        wrap.addEventListener("pointerleave", resume);
+
+        return () => {
+          wrap.removeEventListener("pointerenter", pause);
+          wrap.removeEventListener("pointerleave", resume);
+          st.kill();
+          loop.kill();
+        };
+      });
+    },
+    { scope: wrapRef },
+  );
 
   return (
     <>
@@ -56,10 +121,13 @@ export function SkillsClient({ categories }: { categories: SkillCategory[] }) {
         ))}
       </div>
 
-      {/* Infinite marquee of every skill */}
+      {/* Infinite marquee of every skill — speed follows scroll velocity */}
       <Reveal delay={0.15}>
-        <div className="group relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-          <div className="animate-marquee flex w-max gap-3">
+        <div
+          ref={wrapRef}
+          className="relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+        >
+          <div ref={trackRef} className="flex w-max gap-3">
             {[...allSkills, ...allSkills].map((name, i) => (
               <span
                 key={`${name}-${i}`}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Glitch404 } from "@/components/ui/glitch-404";
 
 export const metadata = { title: "Page not found" };
 
@@ -17,9 +18,7 @@ export default function NotFound() {
       />
 
       <p className="font-mono text-sm text-secondary">{"// error 404"}</p>
-      <h1 className="text-gradient mt-4 font-display text-[7rem] font-bold leading-none tracking-tight sm:text-[10rem]">
-        404
-      </h1>
+      <Glitch404 />
       <h2 className="mt-2 font-display text-xl font-bold sm:text-2xl">
         This page drifted off the grid
       </h2>

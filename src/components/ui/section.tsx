@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion/reveal";
+import { SplitHeading } from "@/components/motion/split-heading";
 
 interface SectionProps {
   id: string;
@@ -41,32 +42,36 @@ export function SectionHeading({
   const centered = align === "center";
 
   return (
-    <Reveal
-      className={cn("mb-12 sm:mb-16", centered && "text-center")}
-    >
-      <p className="font-mono text-sm text-secondary">
-        {"// "}
-        {eyebrow}
-      </p>
-      <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+    <div className={cn("mb-12 sm:mb-16", centered && "text-center")}>
+      <Reveal>
+        <p className="font-mono text-sm text-secondary">
+          {"// "}
+          {eyebrow}
+        </p>
+      </Reveal>
+      <SplitHeading className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
         {title}
-      </h2>
-      <div
-        className={cn(
-          "mt-4 h-px w-24 bg-gradient-to-r from-primary via-accent to-secondary",
-          centered && "mx-auto",
-        )}
-      />
-      {lead ? (
-        <p
+      </SplitHeading>
+      <Reveal delay={0.15} y={0}>
+        <div
           className={cn(
-            "mt-5 max-w-2xl text-base leading-relaxed text-muted",
+            "mt-4 h-px w-24 bg-gradient-to-r from-primary via-accent to-secondary",
             centered && "mx-auto",
           )}
-        >
-          {lead}
-        </p>
+        />
+      </Reveal>
+      {lead ? (
+        <Reveal delay={0.1}>
+          <p
+            className={cn(
+              "mt-5 max-w-2xl text-base leading-relaxed text-muted",
+              centered && "mx-auto",
+            )}
+          >
+            {lead}
+          </p>
+        </Reveal>
       ) : null}
-    </Reveal>
+    </div>
   );
 }
