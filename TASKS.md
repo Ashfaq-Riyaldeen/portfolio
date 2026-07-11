@@ -157,3 +157,4 @@
 - [x] Domain renamed to [ashfaq-riyaldeen.vercel.app](https://ashfaq-riyaldeen.vercel.app); `NEXT_PUBLIC_SITE_URL` updated; sitemap/robots/og fixed
 - [x] Google Search Console verified (file in `public/`, never delete) + sitemap submitted; homepage indexed
 - [x] **Animation upgrade** — GSAP (ScrollTrigger/SplitText/ScrambleText) layered over motion + Lenis: char-reveal headings site-wide, hero scroll-away parallax + name char intro + role decode cycler, project-cover parallax, velocity-reactive skills marquee, footer reveal, 404 glitch, contact-success drawn checkmark; lazy desktop-only React Three Fiber 3D particle hero (2D canvas fallback on mobile/reduced-motion/weak GPUs)
+- [x] **Boot-sequence loading page** — GSAP preloader: terminal lines decode + name signature reveal + 0→100 counter, curtain-up exit that hands off to the hero intro (first-time visitors now actually see it); once per session, no-JS/reduced-motion safe

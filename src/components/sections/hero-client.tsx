@@ -2,11 +2,13 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { ArrowRight, Download } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "@/components/motion/magnetic";
 import { HeroBackdrop } from "@/components/three/hero-backdrop";
 import { SocialIcon } from "@/components/ui/social-icon";
+import { paintGradientChars } from "@/lib/gradient-chars";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import { onPreloaderDone } from "@/lib/preloader-gate";
 import type { Profile } from "@/lib/content";
 
 const container: Variants = {
@@ -20,35 +22,6 @@ const container: Variants = {
  * innerHTML, so "<" would be parsed as markup and eat the text.
  */
 const SCRAMBLE_CHARS = "01_/#$*+";
-
-/**
- * `background-clip: text` doesn't paint through SplitText's inline-block
- * wrappers, so gradient characters go invisible. Repaint each split char
- * with the same gradient, sized to the whole gradient span and offset so
- * the sweep still reads as one continuous gradient across the word.
- */
-function paintGradientChars(root: HTMLElement, chars: Element[]) {
-  // Splitting can leave an emptied clone of the gradient span behind — the
-  // one that owns the text is the one the chars actually live in.
-  const gradientRoot = [
-    ...root.querySelectorAll<HTMLElement>(".text-gradient"),
-  ].find((el) => (el.textContent ?? "").length > 0);
-  if (!gradientRoot) return;
-  const gradient = getComputedStyle(gradientRoot).backgroundImage;
-  const rootBox = gradientRoot.getBoundingClientRect();
-  if (gradient === "none" || rootBox.width === 0) return;
-  for (const char of chars) {
-    if (!gradientRoot.contains(char)) continue;
-    const el = char as HTMLElement;
-    const box = el.getBoundingClientRect();
-    el.style.backgroundImage = gradient;
-    el.style.backgroundSize = `${rootBox.width}px 100%`;
-    el.style.backgroundPosition = `${rootBox.left - box.left}px 0`;
-    el.style.webkitBackgroundClip = "text";
-    el.style.backgroundClip = "text";
-    el.style.color = "transparent";
-  }
-}
 
 export function HeroClient({ profile }: { profile: Profile }) {
   const reduce = useReducedMotion();
@@ -64,6 +37,12 @@ export function HeroClient({ profile }: { profile: Profile }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const roleRef = useRef<HTMLSpanElement>(null);
+
+  // The whole intro waits for the preloader curtain to start lifting, so
+  // first-time visitors actually see it (repeat visits open the gate at
+  // hydration, which matches the old play-on-mount behavior).
+  const [introReady, setIntroReady] = useState(false);
+  useEffect(() => onPreloaderDone(() => setIntroReady(true)), []);
 
   // Intro stagger with explicit slots (0.15 + slot × 0.1). Slot 2 belongs to
   // the h1, whose reveal is a GSAP SplitText below — keep them in sync.
@@ -86,6 +65,10 @@ export function HeroClient({ profile }: { profile: Profile }) {
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         // Name: characters rise out of per-char masks (intro slot 2).
+        // Held paused until the preloader gate opens; autoSplit font
+        // re-splits rebuild the tween, so track the current one.
+        let started = false;
+        let introTween: gsap.core.Tween | null = null;
         const split = SplitText.create(headingRef.current, {
           type: "chars",
           mask: "chars",
@@ -93,26 +76,30 @@ export function HeroClient({ profile }: { profile: Profile }) {
           aria: "auto",
           onSplit: (self) => {
             paintGradientChars(headingRef.current!, self.chars);
-            return gsap.from(self.chars, {
+            introTween = gsap.from(self.chars, {
               yPercent: 110,
               stagger: 0.02,
               duration: 0.9,
               ease: "expo.out",
               delay: 0.35,
+              paused: !started,
             });
+            return introTween;
           },
         });
 
-        // Roles: terminal-style decode, cycling forever.
+        // Roles: terminal-style decode, cycling forever (from gate-open).
+        let cycle: gsap.core.Timeline | null = null;
         const roles = profile.roles;
         if (roles.length > 1 && roleRef.current) {
-          const cycle = gsap.timeline({
+          const cycleTl = gsap.timeline({
             repeat: -1,
             delay: 2.4,
             repeatDelay: 1.9,
+            paused: true,
           });
           roles.forEach((_, i) => {
-            cycle.to(
+            cycleTl.to(
               roleRef.current,
               {
                 duration: 1.1,
@@ -125,7 +112,17 @@ export function HeroClient({ profile }: { profile: Profile }) {
               i === 0 ? 0 : "+=1.9",
             );
           });
+          cycle = cycleTl;
         }
+
+        // Curtain lift → play the intro. restart(true) honors each delay,
+        // keeping the original choreography anchored to the gate instead
+        // of page load.
+        const unsubscribe = onPreloaderDone(() => {
+          started = true;
+          introTween?.restart(true);
+          cycle?.restart(true);
+        });
 
         // Scroll-away: hero sinks and dissolves as the next section
         // slides over it. Orbs move on their WRAPPERS so this never
@@ -145,7 +142,10 @@ export function HeroClient({ profile }: { profile: Profile }) {
           .to(gridRef.current, { yPercent: 12, opacity: 0 }, 0)
           .to(contentRef.current, { yPercent: -10, opacity: 0.2 }, 0);
 
-        return () => split.revert();
+        return () => {
+          unsubscribe();
+          split.revert();
+        };
       });
     },
     { scope: sectionRef },
@@ -196,7 +196,7 @@ export function HeroClient({ profile }: { profile: Profile }) {
         <motion.div
           variants={container}
           initial="hidden"
-          animate="show"
+          animate={introReady ? "show" : "hidden"}
           className="mx-auto flex max-w-4xl flex-col items-center px-6 py-28 text-center"
         >
           {status ? (
@@ -309,7 +309,7 @@ export function HeroClient({ profile }: { profile: Profile }) {
         href="#about"
         aria-label="Scroll to about section"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: introReady ? 1 : 0 }}
         transition={{ delay: 1.6, duration: 1 }}
         className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-subtle transition-colors hover:text-muted"
       >
