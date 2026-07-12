@@ -45,6 +45,31 @@ body {
   outline-offset: 2px;
 }
 
+/* Legacy Safari (iOS 15 – 16.3): dvh units and `in oklab` gradient
+   interpolation don't exist there, and the declarations drop silently —
+   the hero loses its height and every Tailwind gradient stops painting.
+   These unlayered rules out-cascade the @layer utilities only where the
+   modern feature is missing. */
+@supports not (height: 100dvh) {
+  .min-h-dvh {
+    min-height: 100vh;
+  }
+  .h-dvh {
+    height: 100vh;
+  }
+}
+@supports not (background-image: linear-gradient(in oklab, red, red)) {
+  .bg-gradient-to-r {
+    --tw-gradient-position: to right;
+  }
+  .bg-gradient-to-br {
+    --tw-gradient-position: to bottom right;
+  }
+  .bg-gradient-to-b {
+    --tw-gradient-position: to bottom;
+  }
+}
+
 /* Thin dark scrollbar */
 * {
   scrollbar-width: thin;
