@@ -10,6 +10,7 @@ import {
 } from "motion/react";
 import { useEffect, useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
+import { Scrub } from "@/components/motion/scrub";
 import type { Stat } from "@/lib/content";
 
 function Counter({ value }: { value: number }) {
@@ -43,7 +44,8 @@ export function StatsClient({ stats }: { stats: Stat[] }) {
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       {stats.map((stat, i) => (
-        <Reveal key={stat.label} delay={i * 0.08}>
+        <Scrub key={stat.label} y={i % 2 ? -24 : 36}>
+          <Reveal delay={i * 0.08}>
           <div className="glass group relative overflow-hidden rounded-2xl px-6 py-8 text-center transition-colors hover:bg-white/6">
             <div
               aria-hidden
@@ -57,7 +59,8 @@ export function StatsClient({ stats }: { stats: Stat[] }) {
               {stat.label}
             </p>
           </div>
-        </Reveal>
+          </Reveal>
+        </Scrub>
       ))}
     </div>
   );

@@ -1,6 +1,7 @@
 import { ArrowUpRight, Download } from "lucide-react";
 import { Magnetic } from "@/components/motion/magnetic";
 import { Reveal } from "@/components/motion/reveal";
+import { Scrub } from "@/components/motion/scrub";
 import { Section } from "@/components/ui/section";
 import { getProfile, type SectionConfig } from "@/lib/content";
 
@@ -10,7 +11,8 @@ export async function Resume(_props: { config: SectionConfig }) {
   return (
     <Section id="resume" className="py-12 sm:py-16">
       <Reveal>
-        <div className="rounded-3xl bg-gradient-to-r from-primary/60 via-accent/50 to-secondary/60 p-px">
+        <Scrub scale={[0.94, 1]} y={20}>
+          <div className="rounded-3xl bg-gradient-to-r from-primary/60 via-accent/50 to-secondary/60 p-px">
           <div className="glass relative overflow-hidden rounded-[calc(1.5rem-1px)] px-8 py-10 sm:px-12">
             <div
               aria-hidden
@@ -71,7 +73,8 @@ export async function Resume(_props: { config: SectionConfig }) {
               </div>
             </div>
           </div>
-        </div>
+          </div>
+        </Scrub>
       </Reveal>
     </Section>
   );

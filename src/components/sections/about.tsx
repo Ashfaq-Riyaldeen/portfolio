@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
+import { Scrub } from "@/components/motion/scrub";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { getProfile, type SectionConfig } from "@/lib/content";
 
@@ -18,8 +19,9 @@ export async function About({ config }: { config: SectionConfig }) {
 
       <div className="grid gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
         {/* Portrait (or elegant placeholder until a photo is uploaded) */}
-        <Reveal delay={0.1}>
-          <div className="mx-auto w-full max-w-sm">
+        <Scrub y={56}>
+          <Reveal delay={0.1}>
+            <div className="mx-auto w-full max-w-sm">
             <div className="glow-primary rounded-3xl bg-gradient-to-br from-primary via-accent to-secondary p-px">
               <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[calc(1.5rem-1px)] bg-surface">
                 {profile.avatarUrl ? (
@@ -46,8 +48,9 @@ export async function About({ config }: { config: SectionConfig }) {
                 )}
               </div>
             </div>
-          </div>
-        </Reveal>
+            </div>
+          </Reveal>
+        </Scrub>
 
         <div>
           {/* Bio — authored in the admin panel's rich-text editor */}
@@ -58,8 +61,9 @@ export async function About({ config }: { config: SectionConfig }) {
             />
           </Reveal>
 
-          <Reveal delay={0.2}>
-            <dl className="mt-8 grid grid-cols-2 gap-3">
+          <Scrub y={-24}>
+            <Reveal delay={0.2}>
+              <dl className="mt-8 grid grid-cols-2 gap-3">
               {profile.quickFacts.map((fact) => (
                 <div key={fact.label} className="glass rounded-xl px-4 py-3">
                   <dt className="font-mono text-[11px] uppercase tracking-widest text-subtle">
@@ -70,8 +74,9 @@ export async function About({ config }: { config: SectionConfig }) {
                   </dd>
                 </div>
               ))}
-            </dl>
-          </Reveal>
+              </dl>
+            </Reveal>
+          </Scrub>
 
           {profile.currentlyLearning.length > 0 && (
             <Reveal delay={0.25}>

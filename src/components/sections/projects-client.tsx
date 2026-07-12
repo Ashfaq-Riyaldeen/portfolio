@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ParallaxCover } from "@/components/motion/parallax-cover";
+import { Scrub } from "@/components/motion/scrub";
 import { TiltCard } from "@/components/motion/tilt-card";
 import { ScrollTrigger } from "@/lib/gsap";
 import { PlaceholderCover } from "@/components/ui/placeholder-cover";
@@ -63,7 +64,7 @@ export function ProjectsClient({ projects }: { projects: Project[] }) {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
-          {shown.map((project) => (
+          {shown.map((project, i) => (
             <motion.article
               key={project.slug}
               layout
@@ -71,7 +72,9 @@ export function ProjectsClient({ projects }: { projects: Project[] }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="h-full"
             >
+              <Scrub y={i % 2 ? -20 : 28} className="h-full">
               <TiltCard>
                 <div className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-shadow hover:glow-primary">
                   {/* Cover */}
@@ -179,6 +182,7 @@ export function ProjectsClient({ projects }: { projects: Project[] }) {
                   </div>
                 </div>
               </TiltCard>
+              </Scrub>
             </motion.article>
           ))}
         </AnimatePresence>

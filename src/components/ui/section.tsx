@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion/reveal";
+import { Scrub } from "@/components/motion/scrub";
 import { SplitHeading } from "@/components/motion/split-heading";
 
 interface SectionProps {
@@ -52,14 +53,13 @@ export function SectionHeading({
       <SplitHeading className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
         {title}
       </SplitHeading>
-      <Reveal delay={0.15} y={0}>
-        <div
-          className={cn(
-            "mt-4 h-px w-24 bg-gradient-to-r from-primary via-accent to-secondary",
-            centered && "mx-auto",
-          )}
-        />
-      </Reveal>
+      <Scrub
+        drawX
+        className={cn(
+          "mt-4 h-px w-24 bg-gradient-to-r from-primary via-accent to-secondary",
+          centered && "mx-auto",
+        )}
+      />
       {lead ? (
         <Reveal delay={0.1}>
           <p

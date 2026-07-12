@@ -1,5 +1,6 @@
 import { Mail, MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { Scrub } from "@/components/motion/scrub";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { getProfile, type SectionConfig } from "@/lib/content";
@@ -18,7 +19,7 @@ export async function Contact({ config }: { config: SectionConfig }) {
 
       <div className="grid gap-10 lg:grid-cols-[2fr_3fr] lg:gap-16">
         {/* Direct channels */}
-        <div className="space-y-4">
+        <Scrub y={28} className="space-y-4">
           <Reveal delay={0.1}>
             <a
               href={`mailto:${profile.email}`}
@@ -75,12 +76,14 @@ export async function Contact({ config }: { config: SectionConfig }) {
               </div>
             </div>
           </Reveal>
-        </div>
+        </Scrub>
 
         {/* Form */}
-        <Reveal delay={0.15}>
-          <ContactForm toEmail={profile.email} />
-        </Reveal>
+        <Scrub y={-28}>
+          <Reveal delay={0.15}>
+            <ContactForm toEmail={profile.email} />
+          </Reveal>
+        </Scrub>
       </div>
     </Section>
   );

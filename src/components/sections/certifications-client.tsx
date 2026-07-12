@@ -4,6 +4,7 @@ import { ArrowUpRight, Award, Eye } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Reveal } from "@/components/motion/reveal";
+import { Scrub } from "@/components/motion/scrub";
 import { Lightbox } from "@/components/ui/lightbox";
 import { PlaceholderCover } from "@/components/ui/placeholder-cover";
 import type { Certification } from "@/lib/content";
@@ -28,8 +29,9 @@ export function CertificationsClient({
             cert.fileUrl && isImage(cert.fileUrl) ? cert.fileUrl : null;
 
           return (
-            <Reveal key={cert.title} delay={i * 0.06}>
-              <article className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-shadow hover:glow-secondary">
+            <Scrub key={cert.title} y={[32, -20, 12][i % 3]}>
+              <Reveal delay={i * 0.06}>
+                <article className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-shadow hover:glow-secondary">
                 {/* Certificate preview */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   {viewableImage ? (
@@ -112,8 +114,9 @@ export function CertificationsClient({
                     ) : null}
                   </div>
                 </div>
-              </article>
-            </Reveal>
+                </article>
+              </Reveal>
+            </Scrub>
           );
         })}
       </div>
