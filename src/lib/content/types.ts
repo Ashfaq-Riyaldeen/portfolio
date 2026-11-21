@@ -98,6 +98,8 @@ export interface Project {
   coverUrl: string | null;
   gallery: string[];
   tech: string[];
+  /** Browsing categories, independent of technology tags. */
+  categories: string[];
   youtubeUrl: string | null;
   githubUrl: string | null;
   liveUrl: string | null;
@@ -119,7 +121,7 @@ export interface Publication {
 export interface ExperienceEntry {
   company: string;
   role: string;
-  type: "work" | "internship";
+  type: "work" | "internship" | "part-time" | "university-project";
   location: string;
   startDate: string;
   endDate: string | null;

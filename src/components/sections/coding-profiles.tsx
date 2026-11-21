@@ -57,7 +57,7 @@ export async function CodingProfiles({ config }: { config: SectionConfig }) {
       <SectionHeading
         eyebrow="coding-profiles"
         title={config.title}
-        lead="Where the code actually lives — repositories, contest ratings, and problem-solving streaks."
+        lead="Explore my repositories and the code behind my projects."
       />
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

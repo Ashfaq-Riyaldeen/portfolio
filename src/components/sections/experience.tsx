@@ -3,6 +3,13 @@ import { Timeline, type TimelineItem } from "@/components/ui/timeline";
 import { getExperience, type SectionConfig } from "@/lib/content";
 import { formatMonth } from "@/lib/utils";
 
+const experienceLabels = {
+  work: "Work",
+  internship: "Internship",
+  "part-time": "Part-time",
+  "university-project": "University client project",
+} as const;
+
 export async function Experience({ config }: { config: SectionConfig }) {
   const entries = await getExperience();
   if (entries.length === 0) return null;
@@ -11,7 +18,7 @@ export async function Experience({ config }: { config: SectionConfig }) {
     period: `${formatMonth(entry.startDate)} — ${formatMonth(entry.endDate)}`,
     title: entry.role,
     subtitle: `${entry.company} · ${entry.location}`,
-    badge: entry.type === "internship" ? "Internship" : "Work",
+    badge: experienceLabels[entry.type],
     points: entry.bullets,
   }));
 

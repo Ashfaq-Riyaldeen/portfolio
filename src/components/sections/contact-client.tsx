@@ -168,7 +168,7 @@ export function ContactForm({ toEmail }: ContactFormProps) {
           name="message"
           required
           rows={5}
-          placeholder="Tell me about your project, internship, or idea…"
+          placeholder="Tell me about your opportunity, project, or idea…"
           className={`${inputClasses} resize-none`}
         />
       </div>

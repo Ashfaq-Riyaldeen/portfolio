@@ -104,7 +104,7 @@ export const SINGLETONS: Record<string, { table: string; label: string; descript
         hint: "Shown as the résumé download button.",
       },
       { name: "email", label: "Public email", type: "text", required: true },
-      { name: "location", label: "Location", type: "text", placeholder: "Kandy, Sri Lanka" },
+      { name: "location", label: "Location", type: "text", placeholder: "Colombo, Sri Lanka" },
       {
         name: "socials", label: "Social links", type: "rows",
         subfields: [
@@ -145,10 +145,11 @@ export const COLLECTIONS: CollectionDef[] = [
       { name: "cover_url", label: "Cover image", type: "image" },
       { name: "gallery", label: "Gallery images", type: "images" },
       { name: "tech", label: "Tech stack", type: "tags", placeholder: "Next.js, TypeScript, Supabase" },
+      { name: "categories", label: "Project categories", type: "tags", hint: "Full Stack, AI & ML, Data & Analytics, Cloud & DevOps, Systems & Security, Mobile & Hardware" },
       { name: "youtube_url", label: "YouTube demo URL", type: "text", emptyToNull: true, placeholder: "https://youtube.com/watch?v=…" },
       { name: "github_url", label: "GitHub URL", type: "text", emptyToNull: true },
       { name: "live_url", label: "Live demo URL", type: "text", emptyToNull: true },
-      { name: "featured", label: "Featured (large card)", type: "boolean" },
+      { name: "featured", label: "Featured on homepage", type: "boolean" },
       { name: "published", label: "Published (visible to visitors)", type: "boolean" },
     ],
   },
@@ -207,13 +208,13 @@ export const COLLECTIONS: CollectionDef[] = [
   },
   {
     key: "experience", table: "experience", label: "Experience", itemLabel: "role",
-    description: "Internships and work experience.",
+    description: "Work, internships, and university client projects.",
     titleField: "company", subtitleField: "role",
     reorderable: true, orderBy: bySortOrder,
     fields: [
       { name: "company", label: "Company", type: "text", required: true },
       { name: "role", label: "Role", type: "text", required: true },
-      { name: "type", label: "Type", type: "select", options: ["internship", "work"] },
+      { name: "type", label: "Type", type: "select", options: ["internship", "work", "part-time", "university-project"] },
       { name: "location", label: "Location", type: "text" },
       { name: "start_date", label: "Start", type: "month", required: true },
       { name: "end_date", label: "End", type: "month", emptyToNull: true, hint: "Leave empty for “Present”." },
@@ -260,7 +261,7 @@ export const COLLECTIONS: CollectionDef[] = [
     fields: [
       { name: "title", label: "Title", type: "text", required: true },
       { name: "description", label: "Description", type: "textarea", rows: 3 },
-      { name: "date", label: "Date", type: "month" },
+      { name: "date", label: "Date", type: "text", placeholder: "2025 or 2025-06", hint: "Use a year alone when the month is unknown." },
       { name: "issuer", label: "Issuer", type: "text", emptyToNull: true },
       { name: "image_url", label: "Photo", type: "image" },
       { name: "category", label: "Category", type: "select", options: ["award", "hackathon", "competition", "scholarship", "other"] },

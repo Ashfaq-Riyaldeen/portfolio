@@ -71,7 +71,7 @@ Vercel rebuilds and ships it automatically in ~2 minutes.
 | Problem | Fix |
 |---|---|
 | Forgot the admin password | Supabase dashboard → Authentication → Users → your user → *Send password recovery* (or set a new password there directly). |
-| Site shows old placeholder text | The database wasn't reachable when the page was built — check the four env vars on Vercel, then redeploy. |
+| Site shows old placeholder text | Check whether the November 2026 content migration has been applied. `npm run dev:content` previews the updated snapshot locally; the normal site reads Supabase. See README.md for the release steps. |
 | Contact form says "wait a minute" | Anti-spam cooldown: one message per visitor per minute. Normal. |
 | Upload fails | Files must be reasonable (<50 MB); check you're still signed in to `/admin`. |
 | Locked out / something broke badly | The site itself keeps working — it never depends on the admin panel being healthy. Ask Claude Code to investigate. |

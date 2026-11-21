@@ -17,6 +17,7 @@ export function youtubeId(url: string): string | null {
 export function formatMonth(date?: string | null): string {
   if (date == null) return "Present";
   if (!date.trim()) return "";
+  if (/^\d{4}$/.test(date)) return date;
   const [year, month] = date.split("-").map(Number);
   return new Date(year, (month ?? 1) - 1).toLocaleString("en", {
     month: "short",

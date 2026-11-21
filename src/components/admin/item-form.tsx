@@ -348,7 +348,7 @@ function FieldInput({ field, value, text, onChange, onText }: FieldInputProps) {
                               ...r,
                               [sub.name]:
                                 sub.type === "number"
-                                  ? Number(e.target.value) || 0
+                                  ? (e.target.value === "" ? null : Number(e.target.value))
                                   : e.target.value,
                             }
                           : r,
@@ -374,7 +374,7 @@ function FieldInput({ field, value, text, onChange, onText }: FieldInputProps) {
             onClick={() =>
               onChange([
                 ...rows,
-                Object.fromEntries(subs.map((s) => [s.name, s.type === "number" ? 0 : ""])),
+                Object.fromEntries(subs.map((s) => [s.name, s.type === "number" ? null : ""])),
               ])
             }
             className="inline-flex items-center gap-1.5 rounded-xl border border-line px-3.5 py-2 text-xs font-medium text-muted transition-colors hover:border-primary/40 hover:text-foreground"

@@ -10,7 +10,13 @@
   ],
   "scripts": {
     "dev": "next dev",
+    "dev:content": "node scripts/content-preview.mjs dev",
     "build": "next build",
+    "build:content": "node scripts/content-preview.mjs build",
+    "start:content": "node scripts/content-preview.mjs start",
+    "content:prepare": "node --experimental-strip-types scripts/prepare-content-update.mjs",
+    "test:content": "node --experimental-strip-types tests/content.test.mjs",
+    "test:preview": "node --experimental-strip-types tests/preview.test.mjs",
     "start": "next start",
     "lint": "eslint"
   },

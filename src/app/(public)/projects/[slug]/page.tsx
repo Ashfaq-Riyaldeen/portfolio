@@ -43,11 +43,11 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <div className="mx-auto w-full max-w-5xl px-6 pb-24 pt-32">
       <Link
-        href="/#projects"
+        href="/projects"
         className="group inline-flex items-center gap-2 font-mono text-sm text-muted transition-colors hover:text-foreground"
       >
         <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-        all-projects
+        All projects
       </Link>
 
       {/* Header */}
@@ -98,7 +98,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <div>
           <h2 className="font-mono text-sm text-secondary">{"// overview"}</h2>
           <div
-            className="mt-5 space-y-4 text-base leading-relaxed text-muted"
+              className="mt-5 space-y-4 text-base leading-relaxed text-muted [&_h2]:pt-5 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-foreground [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_a]:text-secondary [&_a]:underline [&_strong]:font-medium [&_strong]:text-foreground"
             dangerouslySetInnerHTML={{ __html: project.description }}
           />
 
@@ -130,6 +130,11 @@ export default async function ProjectPage({ params }: PageProps) {
         {/* Sticky meta panel */}
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="glass rounded-2xl p-6">
+            {project.categories.length > 0 && (
+              <div className="mb-5 flex flex-wrap gap-2">
+                {project.categories.map((category) => <span key={category} className="rounded-full border border-secondary/30 px-3 py-1 text-sm text-secondary">{category}</span>)}
+              </div>
+            )}
             <p className="font-mono text-[11px] uppercase tracking-widest text-subtle">
               Tech stack
             </p>

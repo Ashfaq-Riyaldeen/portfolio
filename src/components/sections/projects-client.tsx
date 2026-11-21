@@ -12,44 +12,50 @@ import { ScrollTrigger } from "@/lib/gsap";
 import { PlaceholderCover } from "@/components/ui/placeholder-cover";
 import { SocialIcon } from "@/components/ui/social-icon";
 import type { Project } from "@/lib/content";
+import { filterProjects, PROJECT_CATEGORIES } from "@/lib/content/project-search";
 import { cn } from "@/lib/utils";
 
-const MAX_FILTERS = 5;
-
-export function ProjectsClient({ projects }: { projects: Project[] }) {
+export function ProjectsClient({ projects, browse = false }: { projects: Project[]; browse?: boolean }) {
   const filters = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const p of projects)
-      for (const t of p.tech) counts.set(t, (counts.get(t) ?? 0) + 1);
-    const top = [...counts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, MAX_FILTERS)
-      .map(([tech]) => tech);
-    return ["All", ...top];
+    const available = new Set(projects.flatMap((p) => p.categories));
+    const known = PROJECT_CATEGORIES.filter((category) => available.has(category));
+    const extra = [...available].filter((category) => !known.some((item) => item === category)).sort();
+    return ["All", ...known, ...extra];
   }, [projects]);
 
   const [active, setActive] = useState("All");
-  const shown =
-    active === "All"
-      ? projects
-      : projects.filter((p) => p.tech.includes(active));
+  const [query, setQuery] = useState("");
+  const shown = filterProjects(projects, browse ? active : "All", browse ? query : "");
 
   // Cards re-flow when the filter changes (popLayout); recompute parallax
   // trigger positions once the exit/enter animations have settled.
   useEffect(() => {
     const id = setTimeout(() => ScrollTrigger.refresh(), 450);
     return () => clearTimeout(id);
-  }, [active]);
+  }, [active, query]);
 
   return (
     <>
-      {/* Tech filters */}
-      <div className="mb-10 flex flex-wrap gap-2.5">
+      {browse && (
+      <div className="mb-10 space-y-5">
+        <div className="max-w-xl">
+          <label htmlFor="project-search" className="mb-2 block text-sm text-muted">Search projects</label>
+          <input
+            id="project-search"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search by project, technology, or topic"
+            className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-base text-foreground placeholder:text-subtle focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/30"
+          />
+        </div>
+        <div className="flex flex-wrap gap-2.5" role="group" aria-label="Filter projects by category">
         {filters.map((filter) => (
           <button
             key={filter}
             type="button"
             onClick={() => setActive(filter)}
+            aria-pressed={active === filter}
             className={cn(
               "rounded-full px-4.5 py-2 text-sm transition-all",
               active === filter
@@ -60,7 +66,17 @@ export function ProjectsClient({ projects }: { projects: Project[] }) {
             {filter}
           </button>
         ))}
+        </div>
+        <p role="status" className="text-sm text-muted">{shown.length} {shown.length === 1 ? "project" : "projects"}</p>
       </div>
+      )}
+
+      {shown.length === 0 && (
+        <div className="glass rounded-2xl px-6 py-12 text-center">
+          <p className="text-muted">No projects match this search.</p>
+          <button type="button" onClick={() => { setActive("All"); setQuery(""); }} className="mt-4 rounded-lg px-4 py-2 text-sm font-medium text-secondary">Clear filters</button>
+        </div>
+      )}
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">

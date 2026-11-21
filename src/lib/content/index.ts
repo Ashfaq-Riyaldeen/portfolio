@@ -39,7 +39,9 @@ export const isSupabaseConfigured = Boolean(
 );
 
 const content = cache(async (): Promise<SiteContent> => {
-  if (!isSupabaseConfigured) return seed;
+  // Explicit opt-in for reviewing content before applying the database migration.
+  // Production continues to use editable Supabase records by default.
+  if (process.env.PORTFOLIO_CONTENT_SOURCE === "local" || !isSupabaseConfigured) return seed;
   try {
     return await fetchSiteContent();
   } catch (error) {

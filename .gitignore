@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # personal documents (LinkedIn export etc.)
 Profile.pdf
@@ -42,3 +43,9 @@ Profile.pdf
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+files/*
+
+# Local content snapshots and preview artifacts
+/.portfolio-backups/
+/.portfolio-preview/

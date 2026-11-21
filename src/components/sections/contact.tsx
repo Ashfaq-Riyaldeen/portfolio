@@ -14,7 +14,7 @@ export async function Contact({ config }: { config: SectionConfig }) {
       <SectionHeading
         eyebrow="contact"
         title={config.title}
-        lead="Have a project, an internship, or just an idea worth chasing? My inbox is open — I usually reply within a day."
+        lead="Have an opportunity, a project, or a research idea? Get in touch — I'd be glad to hear about it."
       />
 
       <div className="grid gap-10 lg:grid-cols-[2fr_3fr] lg:gap-16">

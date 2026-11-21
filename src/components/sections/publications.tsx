@@ -9,7 +9,7 @@ export async function Publications({ config }: { config: SectionConfig }) {
 
   return (
     <Section id="publications">
-      <SectionHeading eyebrow="research-publications" title={config.title} />
+      <SectionHeading eyebrow="research" title={config.title} />
 
       <div className="max-w-4xl space-y-6">
         {publications.map((pub, i) => (
@@ -17,7 +17,7 @@ export async function Publications({ config }: { config: SectionConfig }) {
             <article className="glass group rounded-2xl p-7 transition-all hover:bg-white/6 sm:p-8">
               <div className="flex items-center justify-between gap-4">
                 <span className="rounded-full border border-secondary/40 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-secondary">
-                  {pub.type}
+                  {pub.type === "thesis" ? "Undergraduate research" : pub.type}
                 </span>
                 <span className="font-mono text-sm text-subtle">
                   {pub.year}
@@ -46,7 +46,7 @@ export async function Publications({ config }: { config: SectionConfig }) {
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-sm font-medium text-secondary transition-opacity hover:opacity-80"
                     >
-                      View Publication
+                      {pub.type === "thesis" ? "View Research Project" : "View Publication"}
                       <ArrowUpRight className="size-4" />
                     </a>
                   ) : null}

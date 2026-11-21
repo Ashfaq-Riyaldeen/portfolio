@@ -136,6 +136,7 @@ interface ProjectRow {
   cover_url: string | null;
   gallery: string[];
   tech: string[];
+  categories: string[];
   youtube_url: string | null;
   github_url: string | null;
   live_url: string | null;
@@ -321,6 +322,7 @@ function mapProject(r: ProjectRow): Project {
     coverUrl: r.cover_url,
     gallery: r.gallery ?? [],
     tech: r.tech ?? [],
+    categories: r.categories ?? [],
     youtubeUrl: r.youtube_url,
     githubUrl: r.github_url,
     liveUrl: r.live_url,
@@ -452,7 +454,9 @@ export async function fetchSiteContent(): Promise<SiteContent> {
     list<StatRow>(db.from("stats").select("*").order("sort_order")),
     list<EducationRow>(db.from("education").select("*").order("sort_order")),
     list<SkillCategoryRow>(db.from("skill_categories").select("*").order("sort_order")),
-    list<ProjectRow>(db.from("projects").select("*").order("sort_order")),
+    // Explicitly require the migrated column. An older database falls back to the
+    // curated snapshot as a whole, rather than mixing old and refreshed content.
+    list<ProjectRow>(db.from("projects").select("*,categories").order("sort_order")),
     list<PublicationRow>(db.from("publications").select("*").order("sort_order")),
     list<ExperienceRow>(db.from("experience").select("*").order("sort_order")),
     list<CertificationRow>(db.from("certifications").select("*").order("sort_order")),
