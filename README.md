@@ -50,15 +50,18 @@ target the configured Supabase project; use normal `npm run dev` after the migra
 to check admin edits. Keep `PORTFOLIO_CONTENT_SOURCE` unset in Vercel.
 
 The unchanged supplied CV is packaged at `/documents/Ashfaq_Riyaldeen_CV.pdf`.
-The existing portrait is copied locally for fallback rendering; the migration keeps
-the current database portrait URL. Private source files and local content backups
+The current portrait is packaged unchanged under a content-hashed filename; the
+migration sets that photo for both the public site and the admin profile. Private source files and local content backups
 are ignored by Git.
 
 ### Apply to the existing site
 
-1. Retain a current backup of the affected public content tables. The preparation
-   backup is `.portfolio-backups/content-before-2026-11-21.json`; its companion
-   rollback is `.portfolio-backups/rollback-content-2026-11-21.sql`.
+1. Retain an authenticated backup of the affected content tables, including drafts.
+   The latest local public snapshot is `.portfolio-backups/content-before-admin-refresh-2026-11-21.json`;
+   it excludes private drafts and messages and is not a substitute for that backup.
+   The generated rollback is `.portfolio-backups/rollback-content-2026-11-21.sql`.
+   Regenerate the migration against the authenticated backup immediately before
+   applying it, using `node --experimental-strip-types scripts/prepare-content-update.mjs <backup-path>`.
 2. Deploy this code to the existing Vercel project using the normal `npm run build`
    command. This publishes the refreshed snapshot while migration is pending and
    makes the new routes and packaged CV available. Ensure the
@@ -68,13 +71,19 @@ are ignored by Git.
    Supabase SQL access. It runs in one transaction, adds project categories and
    experience types, updates known records, unpublishes sample projects/posts, and
    removes the identified sample awards, paper, and outdated counts. Messages,
-   users, uploads, and unrelated content are preserved. Sample testimonials stay
+   users, uploads, and unrelated content are preserved. Highlight values support
+   decimals, including CGPA 3.77/4.0. Sample testimonials stay
    stored but their section is hidden.
+   Then apply `supabase/migrations/20261121_admin_controls.sql`. This adds the
+   authenticated `save_section_layout(updates jsonb)` function, which saves the
+   complete visibility/order layout atomically and rejects malformed layouts.
 4. Redeploy the same code with a fresh build cache to regenerate the new project
    routes, sitemap, and home content. Confirm `/`, `/projects`, all real project
    routes, CV download, and the admin panel. Retired sample URLs should return 404.
    Normal content reads revalidate every 60 seconds; admin saves invalidate the
-   public layout and its nested pages.
+   shared content cache and the public layout with its nested pages. Admin checks
+   the same public data path without caching and reports fallback or local-preview
+   status instead of claiming those edits are already public.
 
 `npm run content:prepare` regenerates the SQL from the snapshot and the local
 pre-update backup, without connecting to the database. An alternative backup path
@@ -88,6 +97,18 @@ pre-update data, a repeated run, an exact content rollback, and an empty databas
 
 Live application requires authenticated Supabase and deployment access; the public
 Supabase key in `.env.local` does not grant schema or administrative write access.
+
+### Admin and presentation checks
+
+`npm run test:admin` exercises actual server actions with isolated database/framework
+boundaries, including signed-out access, decimal values, failed writes, cache
+invalidation, and fallback status. It also renders project cards and detail pages
+to check image addition/removal and uniform cards. It performs no live writes.
+
+Footer links and homepage sections share visibility, order, and content-availability
+rules. Empty sections stay out of navigation until content is added. Project cover
+and gallery uploads appear only on detail pages; no media means no reserved image
+area. Existing video demos remain supported.
 
 ## Deploy
 

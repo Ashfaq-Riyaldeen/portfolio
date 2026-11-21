@@ -5,8 +5,9 @@ Everything you need to manage your site, in one page. No coding required.
 ## The one big idea
 
 Your site's content lives in a **database**, not in the code. You edit it in the
-**admin panel**, and every save appears on the live site instantly — no rebuild,
-no redeploy, no waiting.
+**admin panel**, and a successful save appears on the next public page load without
+a rebuild or redeployment. The admin status banner confirms whether the site is
+using live database content or a local/fallback snapshot.
 
 - **Live site:** your Vercel URL (or `http://localhost:3000` when running locally)
 - **Admin panel:** add `/admin` to the site URL
@@ -20,9 +21,11 @@ no redeploy, no waiting.
    - **Slug** — the project's web address (`/projects/my-app`): lowercase,
      hyphens, must be unique.
    - **Published** — keep it OFF while drafting; visitors only see published
-     projects. Featured projects get the large card.
-3. Drag images into **Cover image** / **Gallery** — they upload and compress
-   automatically.
+     projects. Featured projects appear on the homepage.
+3. Optional **Detail page cover image** and **Detail page gallery** uploads appear
+   on the project detail page. With no images, that page has no empty image area.
+   Every project card keeps the same generated design. YouTube demo videos are
+   also supported. Wait for uploads to finish, then save the project.
 
 ### Write a blog post
 Admin → **Blog** → *Add post*. Either write the post in the **Content** box
@@ -39,7 +42,9 @@ use **Reply by email** to answer from your own mail app.
 
 ### Show, hide, or reorder sections
 Admin → **Sections**. Toggle any of the 20 sections on/off and drag to reorder,
-then press *Save changes*. Hidden sections disappear from the site and the menu.
+then press *Save changes*. The homepage, navigation, and footer follow this order.
+Hidden or empty sections do not appear in navigation. Use *View section* to open
+the section on the public site after saving.
 
 ### Change the browser title / search description / share image
 Admin → **Settings**. These feed Google results and social-media link previews.

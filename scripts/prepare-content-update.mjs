@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { seed } from "../src/lib/content/seed.ts";
 
 // Generates SQL only. It never connects to or mutates a database.
-const snapshotPath = resolve(process.argv[2] ?? ".portfolio-backups/content-before-2026-11-21.json");
+const snapshotPath = resolve(process.argv[2] ?? ".portfolio-backups/content-before-admin-refresh-2026-11-21.json");
 const before = JSON.parse(await readFile(snapshotPath, "utf8"));
 const quote = (value) => "'" + String(value).replaceAll("'", "''") + "'";
 const jsonColumns = new Set(["profile.quick_facts", "profile.socials", "skill_categories.skills"]);
@@ -27,13 +27,14 @@ function stableId(table, key) {
 }
 const aliases = {
   "Paralegal (Pvt) Ltd": "paralegal.lk",
-  "IESL — Ruhuna Engineering Students Chapter": "IESL — Ruhuna Engineering Students' Chapter",
+  "IESL: Ruhuna Engineering Students Chapter": "IESL — Ruhuna Engineering Students' Chapter",
   "Sinhala": "Sinhalese",
   "Backend & APIs": "Backend",
   "AI & Machine Learning": "AI / ML",
   "Testing & Engineering": "Tools",
 };
-const equivalent = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
+const normalizeKey = (value) => String(value).replaceAll(" — ", ": ").toLowerCase();
+const equivalent = (a, b) => normalizeKey(a) === normalizeKey(b);
 function original(table, key, value) {
   return (before[table] ?? []).find((row) => equivalent(row[key], value) || equivalent(row[key], aliases[value] ?? value));
 }
@@ -51,6 +52,7 @@ const forward = [
   "-- Existing auth, messages, storage objects, and unrelated content are untouched.",
   "begin;",
   "alter table public.projects add column if not exists categories text[] not null default '{}';",
+  "alter table public.stats alter column value type numeric using value::numeric;",
   "alter table public.experience drop constraint if exists experience_type_check;",
   "alter table public.experience add constraint experience_type_check check (type in ('work','internship','part-time','university-project'));",
 ];
@@ -71,7 +73,7 @@ function add(table, record, key, sortOrder, preserve = []) {
   else inserted.push({ table, key: conflict, value: row[conflict] });
   forward.push(upsert(table, row, conflict, preserve));
 }
-add("profile", {id:1, ...seed.profile}, "id", null, ["avatar_url"]);
+add("profile", {id:1, ...seed.profile}, "id");
 add("site_settings", {id:1, ...seed.settings}, "id", null, ["og_image_url", "accent_color"]);
 for (const section of seed.sections) add("sections", section, "key");
 const collections = [
@@ -103,7 +105,7 @@ for (const [table, slugs] of [
 }
 // Remove the obsolete sample counts, invented awards, and sample paper only.
 const retired = {
-  stats: {column:"label", values:["GitHub Repos", "Internships"]},
+  stats: {column:"label", values:["GitHub Repos", "Internships", "Finalist Recognitions", "Languages Spoken"]},
   achievements: {column:"title", values:["Winner — University Hackathon 2025", "Dean's List"]},
   publications: {column:"title", values:["A Lightweight CNN Approach to Handwritten Character Recognition on Low-Power Devices"]},
 };
