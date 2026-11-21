@@ -73,7 +73,7 @@ export function MessagesInbox({ initial }: { initial: MessageRow[] }) {
     return (
       <div className="glass rounded-2xl p-10 text-center">
         <p className="text-sm text-muted">
-          No messages yet — they&apos;ll appear here when someone uses the contact form.
+          No messages yet: they&apos;ll appear here when someone uses the contact form.
         </p>
       </div>
     );

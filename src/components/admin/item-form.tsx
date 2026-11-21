@@ -91,8 +91,8 @@ export function ItemForm({
       const result = await saveCollectionItem(collectionKey, id, payload);
       if (result.error) {
         setError(result.error);
-      } else if (singleton) {
-        setStatus("Saved — the live site is updated.");
+      } else if (singleton || result.warning) {
+        setStatus(result.warning ?? "Saved. Changes appear on the next public page load.");
         router.refresh();
       } else if (backHref) {
         router.push(backHref);
@@ -118,6 +118,7 @@ export function ItemForm({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <fieldset disabled={pending} className="space-y-6 disabled:opacity-70">
         {fields.map((field) => (
           <div key={field.name}>
             <label
@@ -159,6 +160,7 @@ export function ItemForm({
             ) : null}
           </div>
         </div>
+        </fieldset>
       </form>
     </div>
   );
@@ -196,6 +198,7 @@ function FieldInput({ field, value, text, onChange, onText }: FieldInputProps) {
         <input
           id={id}
           type="number"
+          step={field.step ?? 1}
           required={field.required}
           value={String(value ?? "")}
           onChange={(e) => onChange(e.target.value)}
@@ -338,7 +341,7 @@ function FieldInput({ field, value, text, onChange, onText }: FieldInputProps) {
                   <input
                     key={sub.name}
                     type={sub.type === "number" ? "number" : "text"}
-                    aria-label={`${field.label} ${i + 1} — ${sub.label}`}
+                    aria-label={`${field.label} ${i + 1}: ${sub.label}`}
                     value={String(row[sub.name] ?? "")}
                     placeholder={sub.placeholder ?? sub.label}
                     onChange={(e) => {

@@ -49,6 +49,8 @@ export interface FieldDef {
   emptyToNull?: boolean;
   /** For "textarea"/"html" — visible rows */
   rows?: number;
+  /** Numeric input increment; decimal stats must not be constrained to integers. */
+  step?: number | "any";
 }
 
 export interface CollectionDef {
@@ -73,12 +75,12 @@ export const SINGLETONS: Record<string, { table: string; label: string; descript
   profile: {
     table: "profile",
     label: "Profile",
-    description: "Your name, bio, photo, resume, and social links — powers the hero and about sections.",
+    description: "Your name, bio, photo, resume, and social links: powers the hero and about sections.",
     fields: [
       { name: "name", label: "Full name", type: "text", required: true },
       {
         name: "roles", label: "Roles (typewriter)", type: "tags", required: true,
-        hint: "Comma-separated — the hero cycles through these.",
+        hint: "Comma-separated: the hero cycles through these.",
         placeholder: "Full-Stack Developer, Software Engineer",
       },
       { name: "tagline", label: "Tagline", type: "textarea", rows: 2, required: true },
@@ -123,7 +125,7 @@ export const SINGLETONS: Record<string, { table: string; label: string; descript
       { name: "site_title", label: "Site title", type: "text", required: true, hint: "Browser tab + search results." },
       { name: "meta_description", label: "Meta description", type: "textarea", rows: 3, required: true },
       { name: "og_image_url", label: "Social share image", type: "image", hint: "Shown when the site is shared. 1200×630 works best." },
-      { name: "accent_color", label: "Accent color", type: "color", hint: "Stored now — applied site-wide in the polish phase." },
+      { name: "accent_color", label: "Accent color", type: "color", hint: "Stored now: applied site-wide in the polish phase." },
     ],
   },
 };
@@ -131,19 +133,19 @@ export const SINGLETONS: Record<string, { table: string; label: string; descript
 export const COLLECTIONS: CollectionDef[] = [
   {
     key: "projects", table: "projects", label: "Projects", itemLabel: "project",
-    description: "Your project showcase — drafts stay hidden until published.",
+    description: "Your project showcase: drafts stay hidden until published.",
     titleField: "title", subtitleField: "slug",
     reorderable: true, orderBy: bySortOrder,
     fields: [
       { name: "title", label: "Title", type: "text", required: true },
       {
         name: "slug", label: "Slug", type: "text", required: true,
-        placeholder: "my-project", hint: "URL path: /projects/<slug> — lowercase, hyphens, unique.",
+        placeholder: "my-project", hint: "URL path: /projects/<slug>: lowercase, hyphens, unique.",
       },
       { name: "summary", label: "Summary", type: "textarea", rows: 2, required: true, hint: "One or two lines for the project card." },
-      { name: "description", label: "Description (HTML)", type: "html", rows: 10, hint: "Full case study — wrap paragraphs in <p>…</p>." },
-      { name: "cover_url", label: "Cover image", type: "image" },
-      { name: "gallery", label: "Gallery images", type: "images" },
+      { name: "description", label: "Description (HTML)", type: "html", rows: 10, hint: "Full case study: wrap paragraphs in <p>…</p>." },
+      { name: "cover_url", label: "Detail page cover image", type: "image", hint: "Optional. Shown on the detail page only; project cards keep their uniform design." },
+      { name: "gallery", label: "Detail page gallery", type: "images", hint: "Optional. Remove every image to hide the gallery entirely." },
       { name: "tech", label: "Tech stack", type: "tags", placeholder: "Next.js, TypeScript, Supabase" },
       { name: "categories", label: "Project categories", type: "tags", hint: "Full Stack, AI & ML, Data & Analytics, Cloud & DevOps, Systems & Security, Mobile & Hardware" },
       { name: "youtube_url", label: "YouTube demo URL", type: "text", emptyToNull: true, placeholder: "https://youtube.com/watch?v=…" },
@@ -160,7 +162,7 @@ export const COLLECTIONS: CollectionDef[] = [
     reorderable: false, orderBy: { column: "published_at", ascending: false },
     fields: [
       { name: "title", label: "Title", type: "text", required: true },
-      { name: "slug", label: "Slug", type: "text", required: true, hint: "URL path: /blog/<slug> — lowercase, hyphens, unique." },
+      { name: "slug", label: "Slug", type: "text", required: true, hint: "URL path: /blog/<slug>: lowercase, hyphens, unique." },
       { name: "excerpt", label: "Excerpt", type: "textarea", rows: 2, required: true },
       {
         name: "content", label: "Content (HTML)", type: "html", rows: 14, emptyToNull: true,
@@ -298,7 +300,7 @@ export const COLLECTIONS: CollectionDef[] = [
     reorderable: true, orderBy: bySortOrder,
     fields: [
       { name: "label", label: "Label", type: "text", required: true, placeholder: "GitHub Repos" },
-      { name: "value", label: "Value", type: "number", required: true },
+      { name: "value", label: "Value", type: "number", step: "any", required: true },
       { name: "suffix", label: "Suffix", type: "text", placeholder: "+", hint: "Shown after the number, e.g. “+”." },
     ],
   },
@@ -343,7 +345,7 @@ export const COLLECTIONS: CollectionDef[] = [
     fields: [
       { name: "title", label: "Title", type: "text", required: true },
       { name: "description", label: "Description", type: "textarea", rows: 3, required: true },
-      { name: "icon", label: "Icon name", type: "text", emptyToNull: true, hint: "Optional — a lucide icon name like “code” or “palette”." },
+      { name: "icon", label: "Icon name", type: "text", emptyToNull: true, hint: "Optional: a lucide icon name like “code” or “palette”." },
     ],
   },
   {

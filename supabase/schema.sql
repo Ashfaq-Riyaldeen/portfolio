@@ -44,7 +44,7 @@ create table if not exists public.sections (
 create table if not exists public.stats (
   id uuid primary key default gen_random_uuid(),
   label text not null,
-  value integer not null default 0,
+  value numeric not null default 0,
   suffix text not null default '',
   sort_order integer not null default 0
 );
@@ -290,4 +290,5 @@ create policy "Admin delete portfolio files" on storage.objects
 
 -- Content is maintained in src/lib/content/seed.ts.
 -- After this schema, apply migrations/20261121_refresh_portfolio.sql.
+-- Then apply migrations/20261121_admin_controls.sql for section layout saves.
 -- No fictional starter records are inserted.

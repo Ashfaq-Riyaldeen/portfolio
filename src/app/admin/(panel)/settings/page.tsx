@@ -12,7 +12,7 @@ export default async function SettingsEditorPage() {
   if (!row) {
     return (
       <p role="alert" className="text-sm text-red-400">
-        Settings row not found — run supabase/schema.sql in the Supabase SQL Editor first.
+        Settings row not found: run supabase/schema.sql in the Supabase SQL Editor first.
       </p>
     );
   }

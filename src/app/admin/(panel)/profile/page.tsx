@@ -12,7 +12,7 @@ export default async function ProfileEditorPage() {
   if (!row) {
     return (
       <p role="alert" className="text-sm text-red-400">
-        Profile row not found — run supabase/schema.sql in the Supabase SQL Editor first.
+        Profile row not found: run supabase/schema.sql in the Supabase SQL Editor first.
       </p>
     );
   }

@@ -9,6 +9,8 @@ const get = (route, options = {}) => fetch(base + route, {...options, signal:Abo
 const home = await get("/");
 assert.equal(home.status, 200);
 const html = await home.text();
+assert.ok(html.includes("<title>Ashfaq Riyaldeen</title>"));
+assert.ok(html.includes("CGPA") && html.includes("Software Project Experience"));
 for (const expected of ["First-Class Honours", "Colombo, Sri Lanka", "ashfaq.riyaldeen@gmail.com", "University client project"]) assert.ok(html.includes(expected), expected);
 for (const old of ["Nova — AI Study Assistant", "Pulse — Realtime Chat", "Your University", "Acme Software", "AI / ML Enthusiast"]) assert.ok(!html.includes(old), old + " must be absent");
 const section = html.match(/<section id="projects"[\s\S]*?<\/section>/)?.[0];
@@ -33,7 +35,10 @@ for (let index = 0; index < seed.projects.length; index += 5) {
     assert.ok(sitemap.includes(`${route}</loc>`));
     const response = await get(route);
     assert.equal(response.status, 200, route);
-    assert.ok((await response.text()).includes("Project scope"), route);
+    const detail = await response.text();
+    assert.ok(detail.includes("Project scope"), route);
+    assert.ok(!detail.includes("data-project-media"), `${route}: no empty hero media`);
+    assert.ok(!detail.includes("data-project-gallery"), `${route}: no empty gallery`);
   }));
 }
 console.log("All 20 project detail pages: HTTP 200 and included in the sitemap.");

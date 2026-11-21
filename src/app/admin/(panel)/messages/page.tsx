@@ -19,7 +19,7 @@ export default async function MessagesPage() {
         <h1 className="font-display text-2xl font-bold sm:text-3xl">Messages</h1>
         <p className="mt-2 text-sm text-muted">
           {unread > 0
-            ? `${unread} unread ${unread === 1 ? "message" : "messages"} — sent from the site's contact form.`
+            ? `${unread} unread ${unread === 1 ? "message" : "messages"}: sent from the site's contact form.`
             : "Everything sent from the site's contact form lands here."}
         </p>
       </div>

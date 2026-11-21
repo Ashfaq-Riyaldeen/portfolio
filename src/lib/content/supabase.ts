@@ -57,7 +57,7 @@ const SECTION_KEYS = [
 
 const knownSectionKeys = new Set<string>(SECTION_KEYS);
 
-function publicClient() {
+function publicClient(fresh = false) {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -69,7 +69,7 @@ function publicClient() {
         // A short revalidate keeps builds fresh while pages stay prerenderable;
         // admin saves still publish instantly via revalidatePath.
         fetch: (input, init) =>
-          fetch(input, { ...init, next: { revalidate: 60 } }),
+          fetch(input, { ...init, ...(fresh ? { cache: "no-store" as const } : { next: { revalidate: 60, tags: ["portfolio-content"] } }) }),
       },
     },
   );
@@ -424,8 +424,8 @@ function mapGalleryItem(r: GalleryRow): GalleryItem {
 
 // ── Fetch everything ────────────────────────────────────────────────
 
-export async function fetchSiteContent(): Promise<SiteContent> {
-  const db = publicClient();
+export async function fetchSiteContent(fresh = false): Promise<SiteContent> {
+  const db = publicClient(fresh);
 
   const [
     profileRow,
@@ -473,7 +473,7 @@ export async function fetchSiteContent(): Promise<SiteContent> {
 
   if (!profileRow || !settingsRow) {
     throw new Error(
-      "Core tables are empty — run supabase/schema.sql in the Supabase SQL Editor",
+      "Core tables are empty: run supabase/schema.sql in the Supabase SQL Editor",
     );
   }
 

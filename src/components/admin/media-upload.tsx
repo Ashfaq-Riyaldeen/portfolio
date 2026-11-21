@@ -68,7 +68,7 @@ export function MediaUpload({ value, onChange, bucket = "media", accept = "image
     try {
       onChange(await uploadFile(file, bucket));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Upload failed — try again.");
+      setError(e instanceof Error ? e.message : "Upload failed: try again.");
     } finally {
       setBusy(false);
     }
@@ -172,7 +172,7 @@ export function MultiImageUpload({ value, onChange, bucket = "media" }: MultiIma
       const urls = await Promise.all([...files].map((f) => uploadFile(f, bucket)));
       onChange([...value, ...urls]);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Upload failed — try again.");
+      setError(e instanceof Error ? e.message : "Upload failed: try again.");
     } finally {
       setBusy(false);
     }

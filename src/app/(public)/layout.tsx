@@ -18,10 +18,9 @@ export default async function PublicLayout({
     getVisibleSections(),
   ]);
 
-  // Navbar/footer links: visible sections that exist, minus hero (the
-  // monogram links home) and contact (it gets the CTA button instead).
+  // Footer follows every rendered section; navbar renders contact as its CTA.
   const navLinks: NavLink[] = sections
-    .filter((s) => isBuilt(s.key) && s.key !== "hero" && s.key !== "contact")
+    .filter((s) => isBuilt(s.key) && s.key !== "hero")
     .map((s) => ({ id: s.key, label: s.navLabel }));
 
   // Person structured data for search engines, built from the live profile.

@@ -41,7 +41,7 @@ export function CollectionList({ def, rows: initial }: CollectionListProps) {
         setError(result.error);
       } else {
         setBaseline(rows);
-        setStatus("Order saved — the live site is updated.");
+        setStatus(result.warning ?? "Order saved. Changes appear on the next public page load.");
       }
     });
   }
@@ -58,6 +58,7 @@ export function CollectionList({ def, rows: initial }: CollectionListProps) {
       } else {
         setRows((prev) => prev.filter((r) => r.id !== row.id));
         setBaseline((prev) => prev.filter((r) => r.id !== row.id));
+        setStatus(result.warning ?? "Deleted. Changes appear on the next public page load.");
         router.refresh();
       }
     });
@@ -67,7 +68,7 @@ export function CollectionList({ def, rows: initial }: CollectionListProps) {
     return (
       <div className="glass rounded-2xl p-10 text-center">
         <p className="text-sm text-muted">
-          Nothing here yet — add your first {def.itemLabel} with the button above.
+          Nothing here yet: add your first {def.itemLabel} with the button above.
         </p>
       </div>
     );
@@ -129,7 +130,7 @@ export function CollectionList({ def, rows: initial }: CollectionListProps) {
           <p className="text-sm text-emerald-400">{status}</p>
         ) : orderDirty ? (
           <p className="text-sm text-amber-300">
-            Unsaved order — the live site still shows the old order.
+            Unsaved order: the live site still shows the old order.
           </p>
         ) : null}
       </div>
@@ -140,6 +141,7 @@ export function CollectionList({ def, rows: initial }: CollectionListProps) {
             axis="y"
             values={rows}
             onReorder={(next: CollectionRow[]) => {
+              if (pending) return;
               setStatus(null);
               setRows(next);
             }}
@@ -149,6 +151,7 @@ export function CollectionList({ def, rows: initial }: CollectionListProps) {
               <Reorder.Item
                 key={row.id}
                 value={row}
+                dragListener={!pending}
                 className="glass flex cursor-grab items-center gap-3 rounded-xl px-4 py-3 active:cursor-grabbing"
               >
                 {rowContent(row, index)}

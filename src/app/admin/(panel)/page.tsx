@@ -80,7 +80,7 @@ export default async function AdminDashboard() {
           {unread > 0 ? (
             <>
               <span className="font-semibold text-foreground">{unread}</span>{" "}
-              unread message{unread === 1 ? "" : "s"} waiting — open the inbox.
+              unread message{unread === 1 ? "" : "s"} waiting: open the inbox.
             </>
           ) : (
             "No unread messages."

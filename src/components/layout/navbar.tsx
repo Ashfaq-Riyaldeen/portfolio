@@ -8,7 +8,7 @@ import {
 } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export interface NavLink {
@@ -38,7 +38,9 @@ function monogram(name: string) {
     .toUpperCase();
 }
 
-export function Navbar({ links, name }: NavbarProps) {
+export function Navbar({ links: sectionLinks, name }: NavbarProps) {
+  const links = useMemo(() => sectionLinks.filter((link) => link.id !== "contact"), [sectionLinks]);
+  const contact = sectionLinks.find((link) => link.id === "contact");
   const pathname = usePathname();
   const onHome = pathname === "/";
   const [hidden, setHidden] = useState(false);
@@ -88,9 +90,9 @@ export function Navbar({ links, name }: NavbarProps) {
       >
         <nav className="glass flex w-full max-w-4xl items-center justify-between rounded-full py-2 pl-5 pr-2">
           <a
-            href={href("hero")}
+            href={href("top")}
             className="font-display text-lg font-bold tracking-tight"
-            aria-label={`${name} — home`}
+            aria-label={`${name}: home`}
           >
             <span className="text-gradient">{monogram(name)}</span>
             <span className="text-secondary">.</span>
@@ -121,12 +123,12 @@ export function Navbar({ links, name }: NavbarProps) {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a
+            {contact && <a
               href={href("contact")}
               className="hidden rounded-full bg-gradient-to-r from-primary to-secondary px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 lg:block"
             >
               Let&apos;s Talk
-            </a>
+            </a>}
 
             {/* Menu button — always on mobile; on desktop only when links overflow the pill */}
             <button
@@ -172,7 +174,7 @@ export function Navbar({ links, name }: NavbarProps) {
                   {link.label}
                 </motion.a>
               ))}
-              <motion.a
+              {contact && <motion.a
                 href={href("contact")}
                 onClick={() => setOpen(false)}
                 initial={{ opacity: 0, y: 16 }}
@@ -181,7 +183,7 @@ export function Navbar({ links, name }: NavbarProps) {
                 className="mt-6 rounded-full bg-gradient-to-r from-primary to-secondary px-8 py-3 font-medium text-white"
               >
                 Let&apos;s Talk
-              </motion.a>
+              </motion.a>}
             </nav>
           </motion.div>
         )}

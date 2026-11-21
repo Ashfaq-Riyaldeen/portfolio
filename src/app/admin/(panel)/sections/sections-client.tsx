@@ -10,6 +10,7 @@ export interface SectionItem {
   key: string;
   title: string;
   visible: boolean;
+  hasContent: boolean;
 }
 
 export function SectionsManager({ initial }: { initial: SectionItem[] }) {
@@ -23,6 +24,7 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
   const visibleCount = items.filter((it) => it.visible).length;
 
   function toggle(key: string) {
+    if (pending) return;
     setStatus(null);
     setItems((prev) =>
       prev.map((it) =>
@@ -32,6 +34,7 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
   }
 
   function handleReorder(next: SectionItem[]) {
+    if (pending) return;
     setStatus(null);
     setItems(next);
   }
@@ -51,7 +54,7 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
         setError(result.error);
       } else {
         setBaseline(items);
-        setStatus("Saved — the live site is updated.");
+        setStatus(result.warning ?? "Saved. Changes appear on the next public page load.");
       }
     });
   }
@@ -81,7 +84,7 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
           <p className="text-sm text-emerald-400">{status}</p>
         ) : dirty ? (
           <p className="text-sm text-amber-300">
-            Unsaved changes — the live site still shows the old layout.
+            Unsaved changes: the live site still shows the old layout.
           </p>
         ) : null}
       </div>
@@ -96,6 +99,7 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
           <Reorder.Item
             key={item.key}
             value={item}
+            dragListener={!pending}
             className={cn(
               "glass flex cursor-grab items-center gap-3 rounded-xl px-4 py-3 active:cursor-grabbing",
               !item.visible && "opacity-60",
@@ -112,7 +116,9 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
               <p className="truncate font-mono text-[10px] text-subtle">
                 {item.key}
               </p>
+              {!item.hasContent && <p className="mt-1 text-xs text-amber-300">Add content before this section can appear.</p>}
             </div>
+            {item.hasContent && item.visible && <a href={`/#${item.key}`} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2 py-1 text-xs text-secondary">View section</a>}
             <span
               className={cn(
                 "hidden font-mono text-[10px] uppercase tracking-widest sm:block",
@@ -124,6 +130,7 @@ export function SectionsManager({ initial }: { initial: SectionItem[] }) {
             <button
               type="button"
               role="switch"
+              disabled={pending}
               aria-checked={item.visible}
               aria-label={`Toggle ${item.title}`}
               onClick={() => toggle(item.key)}

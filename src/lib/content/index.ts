@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { seed } from "./seed";
 import { fetchSiteContent } from "./supabase";
+import { visibleSections } from "./sections";
 import type {
   Achievement,
   BlogPost,
@@ -38,20 +39,31 @@ export const isSupabaseConfigured = Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
-const content = cache(async (): Promise<SiteContent> => {
+export interface ContentState {
+  data: SiteContent;
+  source: "supabase" | "local" | "fallback";
+  error?: string;
+}
+
+/** Admin checks bypass the public cache and exercise the same anonymous read path. */
+export async function readContentState(fresh = false): Promise<ContentState> {
   // Explicit opt-in for reviewing content before applying the database migration.
   // Production continues to use editable Supabase records by default.
-  if (process.env.PORTFOLIO_CONTENT_SOURCE === "local" || !isSupabaseConfigured) return seed;
+  if (process.env.PORTFOLIO_CONTENT_SOURCE === "local" || !isSupabaseConfigured) {
+    return { data: seed, source: "local" };
+  }
   try {
-    return await fetchSiteContent();
+    return { data: await fetchSiteContent(fresh), source: "supabase" };
   } catch (error) {
     console.warn(
-      "[content] Supabase fetch failed — serving seed content instead:",
+      "[content] Supabase fetch failed: serving seed content instead:",
       error instanceof Error ? error.message : error,
     );
-    return seed;
+    return { data: seed, source: "fallback", error: error instanceof Error ? error.message : "Content could not be loaded." };
   }
-});
+}
+
+const content = cache(async (): Promise<SiteContent> => (await readContentState()).data);
 
 export async function getProfile(): Promise<Profile> {
   return (await content()).profile;
@@ -67,7 +79,7 @@ export async function getSections(): Promise<SectionConfig[]> {
 }
 
 export async function getVisibleSections(): Promise<SectionConfig[]> {
-  return (await getSections()).filter((s) => s.visible);
+  return visibleSections(await content());
 }
 
 export async function getStats(): Promise<Stat[]> {

@@ -5,6 +5,38 @@ import { createHash } from "node:crypto";
 import { seed } from "../src/lib/content/seed.ts";
 import { filterProjects, PROJECT_CATEGORIES } from "../src/lib/content/project-search.ts";
 import { formatMonth } from "../src/lib/utils.ts";
+import { statNumberFormat } from "../src/lib/content/stat-format.ts";
+import { visibleSections } from "../src/lib/content/sections.ts";
+
+test("section navigation follows saved order and excludes hidden, empty, and draft-only content", () => {
+  const content = structuredClone(seed);
+  content.sections.forEach((s) => { s.visible = ["about", "projects", "blogs", "contact", "resume", "faq"].includes(s.key); });
+  content.sections.find((s) => s.key === "contact").sortOrder = -1;
+  assert.deepEqual(visibleSections(content).map((s) => s.key), ["contact", "about", "projects", "resume"]);
+  content.projects.forEach((p) => { p.published = false; });
+  content.profile.resumeUrl = null;
+  assert.deepEqual(visibleSections(content).map((s) => s.key), ["contact", "about"]);
+  content.blogPosts = [{published:true}];
+  content.faqs = [{question:"Example", answer:"Answer"}];
+  assert.ok(visibleSections(content).some((s) => s.key === "blogs"));
+  assert.ok(visibleSections(content).some((s) => s.key === "faq"));
+});
+
+test("homepage title, current portrait, and decimal highlights match the approved presentation", () => {
+  assert.equal(seed.settings.siteTitle, "Ashfaq Riyaldeen");
+  assert.deepEqual(seed.stats, [
+    {label:"Projects & Research", value:20, suffix:""},
+    {label:"Certifications", value:6, suffix:""},
+    {label:"CGPA", value:3.77, suffix:"/4.0"},
+    {label:"Software Project Experience", value:1, suffix:"+ Years"},
+  ]);
+  assert.equal(statNumberFormat(3.77).format(3.77), "3.77");
+  assert.equal(statNumberFormat(3.77).format(1), "1.00");
+  assert.equal(statNumberFormat(20).format(20), "20");
+  assert.equal(statNumberFormat(1).format(1), "1");
+  assert.deepEqual(readFileSync(new URL("../public" + seed.profile.avatarUrl, import.meta.url)), readFileSync(new URL("../public/ashfaq-portrait.png", import.meta.url)));
+  assert.ok(!JSON.stringify(seed).includes(" — "));
+});
 
 test("catalogue covers the approved projects without duplicates or unsupported completion claims", () => {
   assert.equal(seed.projects.length, 20);
