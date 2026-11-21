@@ -59,7 +59,7 @@ export async function sendContactMessage(
     return { ok: false, error: "That email address doesn't look right." };
   }
   if (message.length > 5000) {
-    return { ok: false, error: "That message is a little too long — please shorten it." };
+    return { ok: false, error: "That message is a little too long: please shorten it." };
   }
 
   const ip = ((await headers()).get("x-forwarded-for") ?? "local").split(",")[0].trim();
@@ -71,7 +71,7 @@ export async function sendContactMessage(
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) {
-    return { ok: false, error: "The contact form isn't set up yet — email me instead." };
+    return { ok: false, error: "The contact form isn't set up yet: email me instead." };
   }
 
   // Plain anon client: the RLS "Anyone can send" policy allows exactly this insert.
@@ -83,7 +83,7 @@ export async function sendContactMessage(
     message,
   });
   if (error) {
-    return { ok: false, error: "Couldn't send your message — please try again in a moment." };
+    return { ok: false, error: "Couldn't send your message: please try again in a moment." };
   }
 
   lastSentByIp.set(ip, Date.now());

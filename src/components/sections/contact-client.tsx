@@ -94,7 +94,7 @@ export function ContactForm({ toEmail }: ContactFormProps) {
         <SuccessCheck />
         <h3 className="mt-6 font-display text-xl font-bold">Message sent!</h3>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-          Thanks for reaching out — I read every message and I&apos;ll get back to
+          Thanks for reaching out: I read every message and I&apos;ll get back to
           you soon. In a hurry? Write to me directly at{" "}
           <a href={`mailto:${toEmail}`} className="text-secondary underline-offset-2 hover:underline">
             {toEmail}
@@ -201,7 +201,7 @@ export function ContactForm({ toEmail }: ContactFormProps) {
           </span>
         ) : (
           <span className="text-subtle">
-            {"// goes straight to my inbox — no email app needed"}
+            {"// goes straight to my inbox: no email app needed"}
           </span>
         )}
       </p>

@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Play, Star } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ParallaxCover } from "@/components/motion/parallax-cover";
@@ -99,21 +98,11 @@ export function ProjectsClient({ projects, browse = false }: { projects: Project
                     className="relative block aspect-video overflow-hidden"
                   >
                     <ParallaxCover>
-                      {project.coverUrl ? (
-                        <Image
-                          src={project.coverUrl}
-                          alt={project.title}
-                          fill
-                          sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <PlaceholderCover
-                          seed={project.slug}
-                          label={project.title}
-                          className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
-                        />
-                      )}
+                      <PlaceholderCover
+                        seed={project.slug}
+                        label={project.title}
+                        className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
+                      />
                     </ParallaxCover>
                     {project.featured ? (
                       <span className="glass absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-foreground">

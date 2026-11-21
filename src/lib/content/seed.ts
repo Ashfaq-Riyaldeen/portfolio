@@ -29,7 +29,7 @@ export const seed: SiteContent = {
       }
     ],
     "currentlyLearning": [],
-    "avatarUrl": "/ashfaq-portrait.png",
+    "avatarUrl": "/ashfaq-portrait-65e74ac4bfb3.png",
     "resumeUrl": "/documents/Ashfaq_Riyaldeen_CV.pdf",
     "email": "ashfaq.riyaldeen@gmail.com",
     "location": "Colombo, Sri Lanka",
@@ -45,7 +45,7 @@ export const seed: SiteContent = {
     ]
   },
   "settings": {
-    "siteTitle": "Ashfaq Riyaldeen — Software Engineer",
+    "siteTitle": "Ashfaq Riyaldeen",
     "metaDescription": "Computer Engineering graduate building full-stack applications, AI and machine learning projects, data pipelines, and cloud platforms. Explore Ashfaq Riyaldeen’s work.",
     "ogImageUrl": null,
     "accentColor": "#7c3aed"
@@ -204,14 +204,14 @@ export const seed: SiteContent = {
       "suffix": ""
     },
     {
-      "label": "Finalist Recognitions",
-      "value": 2,
-      "suffix": ""
+      "label": "CGPA",
+      "value": 3.77,
+      "suffix": "/4.0"
     },
     {
-      "label": "Languages Spoken",
-      "value": 3,
-      "suffix": ""
+      "label": "Software Project Experience",
+      "value": 1,
+      "suffix": "+ Years"
     }
   ],
   "education": [
@@ -712,7 +712,7 @@ export const seed: SiteContent = {
       "slug": "dn-dental-clinic",
       "title": "DN Dental Clinic Management Platform",
       "summary": "A clinic platform with public appointment booking and a separate React staff console, backed by Spring Boot and MySQL.",
-      "description": "<p>University client project. Client engagement: June 2024–March 2025; technical project work continued through May 2025. Delivered for use by clinic staff and patients.</p><h2>What I built</h2><ul><li>Built two React interfaces for public booking and staff workflows, with responsive layouts and form validation.</li><li>Implemented Spring Boot services for appointments, schedules, patient records, and reporting, with over 60 REST endpoints across 11 services and 11 JPA repositories.</li><li>Applied appointment-slot locking, asynchronous email notifications, and S3 presigned file transfers.</li><li>Automated three Jenkins pipelines and packaged the application, database, and monitoring in Docker Compose.</li></ul><h2>Results</h2><ul><li>Delivered 22 documented functions: 17 staff functions and five patient-facing functions.</li><li>The project SonarQube assessment recorded 71.1% test coverage, an A grade, and 0.31% duplication.</li></ul><h2>Project scope</h2><p>This was a university client project, not clinic employment. AWS EC2 deployment and monitoring are documented for the project environment; the clinic’s operational hosting and user counts are not recorded.</p>",
+      "description": "<p>University client project. Client engagement: June 2024 to March 2025; technical project work continued through May 2025. Delivered for use by clinic staff and patients.</p><h2>What I built</h2><ul><li>Built two React interfaces for public booking and staff workflows, with responsive layouts and form validation.</li><li>Implemented Spring Boot services for appointments, schedules, patient records, and reporting, with over 60 REST endpoints across 11 services and 11 JPA repositories.</li><li>Applied appointment-slot locking, asynchronous email notifications, and S3 presigned file transfers.</li><li>Automated three Jenkins pipelines and packaged the application, database, and monitoring in Docker Compose.</li></ul><h2>Results</h2><ul><li>Delivered 22 documented functions: 17 staff functions and five patient-facing functions.</li><li>The project SonarQube assessment recorded 71.1% test coverage, an A grade, and 0.31% duplication.</li></ul><h2>Project scope</h2><p>This was a university client project, not clinic employment. AWS EC2 deployment and monitoring are documented for the project environment; the clinic’s operational hosting and user counts are not recorded.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -739,9 +739,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "playarena",
-      "title": "PlayArena — Sports Facility Booking",
+      "title": "PlayArena: Sports Facility Booking",
       "summary": "A React and Go booking platform combining live availability, dynamic pricing, and reliable booking workflows across seven microservices.",
-      "description": "<p>Software Architecture coursework, May–September 2026. A complete prototype with public, player, facility-owner, and administrator interfaces.</p><h2>What I built</h2><ul><li>Built 29 React screens and seven Go services for identity, facilities, bookings, pricing, matches, billing, and notifications.</li><li>Protected booking consistency with row-level locking, a partial unique index, idempotent calls, and a transactional outbox.</li><li>Implemented saga compensation, server-side pricing rules, and Redis-backed availability search.</li><li>Designed the C4 architecture views and integrated service and browser checks into GitHub Actions.</li></ul><h2>Results</h2><ul><li>A 100-attempt concurrent booking test produced one successful booking and 99 clean conflicts for a single slot.</li><li>Release v1.2.0 recorded 77 passing service checks and 54 passing Playwright tests.</li><li>Bookings continued during a notification-service failure, with missed events replayed after restart.</li></ul><h2>Project scope</h2><p>Evaluated on one Docker Compose host. Payment and notification adapters are mocked; this was not a production service or a real-money payment system.</p>",
+      "description": "<p>Software Architecture coursework, May to September 2026. A complete prototype with public, player, facility-owner, and administrator interfaces.</p><h2>What I built</h2><ul><li>Built 29 React screens and seven Go services for identity, facilities, bookings, pricing, matches, billing, and notifications.</li><li>Protected booking consistency with row-level locking, a partial unique index, idempotent calls, and a transactional outbox.</li><li>Implemented saga compensation, server-side pricing rules, and Redis-backed availability search.</li><li>Designed the C4 architecture views and integrated service and browser checks into GitHub Actions.</li></ul><h2>Results</h2><ul><li>A 100-attempt concurrent booking test produced one successful booking and 99 clean conflicts for a single slot.</li><li>Release v1.2.0 recorded 77 passing service checks and 54 passing Playwright tests.</li><li>Bookings continued during a notification-service failure, with missed events replayed after restart.</li></ul><h2>Project scope</h2><p>Evaluated on one Docker Compose host. Payment and notification adapters are mocked; this was not a production service or a real-money payment system.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -768,9 +768,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "choojava",
-      "title": "ChooJava — Cloud Retail Platform",
+      "title": "ChooJava: Cloud Retail Platform",
       "summary": "A React retail interface and six Spring Boot services deployed to Amazon EKS, with event-driven workflows and automated container delivery.",
-      "description": "<p>Cloud Computing coursework, December 2025–April 2026. Built and deployed on AWS during the project; the cluster has since been torn down.</p><h2>What I built</h2><ul><li>Built six Spring Boot services behind Spring Cloud Gateway and a React frontend for registration, catalogue browsing, inventory, and notifications.</li><li>Configured Kubernetes deployments, network policies, autoscaling, and external secret distribution on EKS.</li><li>Created Jenkins pipelines that publish versioned images to ECR and deploy through environment overlays.</li><li>Diagnosed Kafka consumer and database-pool failures, tuned circuit breakers, and enforced Keycloak JWT checks within services.</li></ul><h2>Results</h2><ul><li>Packaging pre-built JARs reduced measured Docker image builds to 3–5 seconds per service.</li><li>The coursework deployment used three AWS availability zones and six independently deployed services.</li></ul><h2>Project scope</h2><p>The deployment served no external customers or real orders. Autoscaling settings describe configuration, not measured capacity or production availability.</p>",
+      "description": "<p>Cloud Computing coursework, December 2025 to April 2026. Built and deployed on AWS during the project; the cluster has since been torn down.</p><h2>What I built</h2><ul><li>Built six Spring Boot services behind Spring Cloud Gateway and a React frontend for registration, catalogue browsing, inventory, and notifications.</li><li>Configured Kubernetes deployments, network policies, autoscaling, and external secret distribution on EKS.</li><li>Created Jenkins pipelines that publish versioned images to ECR and deploy through environment overlays.</li><li>Diagnosed Kafka consumer and database-pool failures, tuned circuit breakers, and enforced Keycloak JWT checks within services.</li></ul><h2>Results</h2><ul><li>Packaging pre-built JARs reduced measured Docker image builds to 3 to 5 seconds per service.</li><li>The coursework deployment used three AWS availability zones and six independently deployed services.</li></ul><h2>Project scope</h2><p>The deployment served no external customers or real orders. Autoscaling settings describe configuration, not measured capacity or production availability.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -797,9 +797,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "prexon",
-      "title": "PreXon — AI Exam Preparation",
+      "title": "PreXon: AI Exam Preparation",
       "summary": "A Next.js and FastAPI study prototype for document ingestion, cited tutoring, study materials, and evaluated past-paper grading.",
-      "description": "<p>Advanced Artificial Intelligence coursework, December 2025–April 2026. A study-platform prototype with a defined evaluation corpus.</p><h2>What I built</h2><ul><li>Built extraction paths for digital PDFs, scans, images, videos, and web pages, followed by chunking and embeddings in pgvector.</li><li>Implemented hybrid dense and lexical retrieval with reciprocal-rank fusion and reranking for cited answers.</li><li>Added validated study-material generation and a LangGraph retrieval and self-check workflow.</li><li>Connected question extraction and grading modules to a Next.js interface and a reproducible evaluation harness.</li></ul><h2>Results</h2><ul><li>On 28 verified queries, recall at five improved from 0.435 with dense-only search to 0.881 with the full retrieval stack.</li><li>Recovered 21 of 21 subparts from the evaluated scanned paper.</li><li>All 15 evaluated answers were graded within one mark of the human examiner; mean absolute error was 0.222 marks.</li></ul><h2>Project scope</h2><p>Results describe a small, defined corpus and one evaluated past paper. They do not establish generalisation to other subjects or high-stakes grading reliability.</p>",
+      "description": "<p>Advanced Artificial Intelligence coursework, December 2025 to April 2026. A study-platform prototype with a defined evaluation corpus.</p><h2>What I built</h2><ul><li>Built extraction paths for digital PDFs, scans, images, videos, and web pages, followed by chunking and embeddings in pgvector.</li><li>Implemented hybrid dense and lexical retrieval with reciprocal-rank fusion and reranking for cited answers.</li><li>Added validated study-material generation and a LangGraph retrieval and self-check workflow.</li><li>Connected question extraction and grading modules to a Next.js interface and a reproducible evaluation harness.</li></ul><h2>Results</h2><ul><li>On 28 verified queries, recall at five improved from 0.435 with dense-only search to 0.881 with the full retrieval stack.</li><li>Recovered 21 of 21 subparts from the evaluated scanned paper.</li><li>All 15 evaluated answers were graded within one mark of the human examiner; mean absolute error was 0.222 marks.</li></ul><h2>Project scope</h2><p>Results describe a small, defined corpus and one evaluated past paper. They do not establish generalisation to other subjects or high-stakes grading reliability.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -828,7 +828,7 @@ export const seed: SiteContent = {
       "slug": "hospital-vitals",
       "title": "Hospital Patient Vital Signs Monitoring",
       "summary": "A simulated monitoring pipeline using Kafka, Spark, Cassandra, and Airflow for validation, replayable scoring, alerts, and ward reports.",
-      "description": "<p>Big Data Analytics coursework, May–September 2026. All patient observations and ward scenarios were simulated.</p><h2>What I built</h2><ul><li>Built Kafka topics and schemas, Cassandra storage, and the Docker Compose platform.</li><li>Implemented stream validation, NEWS2 scoring, lab joins, alert episodes, dead-letter handling, and event replay.</li><li>Added Airflow workflows, a FastAPI ward service, version comparisons, and monitoring dashboards.</li><li>Generated physiological inputs and checked pipeline behaviour against known patient scenarios.</li></ul><h2>Results</h2><ul><li>The measured run processed 13.3 readings per second across 40 patient keys, with median and P95 end-to-end times of 4.6 and 7.3 seconds.</li><li>All 406 impossible readings in the evaluated snapshot reached the dead-letter path.</li><li>The recorded project suite passed 533 automated tests.</li></ul><h2>Project scope</h2><p>Evaluated on one machine with one Kafka broker and one Cassandra node. This was not a real patient deployment or a clinically validated alerting system.</p>",
+      "description": "<p>Big Data Analytics coursework, May to September 2026. All patient observations and ward scenarios were simulated.</p><h2>What I built</h2><ul><li>Built Kafka topics and schemas, Cassandra storage, and the Docker Compose platform.</li><li>Implemented stream validation, NEWS2 scoring, lab joins, alert episodes, dead-letter handling, and event replay.</li><li>Added Airflow workflows, a FastAPI ward service, version comparisons, and monitoring dashboards.</li><li>Generated physiological inputs and checked pipeline behaviour against known patient scenarios.</li></ul><h2>Results</h2><ul><li>The measured run processed 13.3 readings per second across 40 patient keys, with median and P95 end-to-end times of 4.6 and 7.3 seconds.</li><li>All 406 impossible readings in the evaluated snapshot reached the dead-letter path.</li><li>The recorded project suite passed 533 automated tests.</li></ul><h2>Project scope</h2><p>Evaluated on one machine with one Kafka broker and one Cassandra node. This was not a real patient deployment or a clinically validated alerting system.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -855,9 +855,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "fazd-sdvn",
-      "title": "FAZD-SDVN — Vehicular Network Defence",
+      "title": "FAZD-SDVN: Vehicular Network Defence",
       "summary": "Undergraduate research combining graph learning, an auditable LLM decision layer, blockchain, and zero-knowledge proofs against false accusations.",
-      "description": "<p>Final-year undergraduate research, January–September 2026, University of Ruhuna. Supervised by Dr. P.A.D.S.N. Wijesekara.</p><h2>What I built</h2><ul><li>Designed a defence framework combining proof verification, ledger evidence, graph-neural-network classification, and an independent LLM decision stage.</li><li>Developed four Hyperledger Fabric chaincodes and a Go bridge connecting network simulation, blockchain peers, and Python inference services.</li><li>Trained and evaluated a heterogeneous GATv2 model and benchmarked four open-weight language-model checkpoints.</li><li>Built the NS-3/SUMO evaluation harness with baseline comparisons and component ablations.</li></ul><h2>Results</h2><ul><li>The held-out GNN evaluation recorded MCC 0.883 at a 3.93% false-positive rate.</li><li>Ledger commits had a median latency of 156 ms across 2,540 simulated accusation transactions.</li><li>The evaluated control-plane defence blocked 369 of 369 valid attack cases; simulation runs included 200 vehicles over 865 seconds.</li></ul><h2>Project scope</h2><p>This is an undergraduate research report, not a peer-reviewed publication. All results are simulated; measured full-mode overhead and false rejections limit deployment claims.</p>",
+      "description": "<p>Final-year undergraduate research, January to September 2026, University of Ruhuna. Supervised by Dr. P.A.D.S.N. Wijesekara.</p><h2>What I built</h2><ul><li>Designed a defence framework combining proof verification, ledger evidence, graph-neural-network classification, and an independent LLM decision stage.</li><li>Developed four Hyperledger Fabric chaincodes and a Go bridge connecting network simulation, blockchain peers, and Python inference services.</li><li>Trained and evaluated a heterogeneous GATv2 model and benchmarked four open-weight language-model checkpoints.</li><li>Built the NS-3/SUMO evaluation harness with baseline comparisons and component ablations.</li></ul><h2>Results</h2><ul><li>The held-out GNN evaluation recorded MCC 0.883 at a 3.93% false-positive rate.</li><li>Ledger commits had a median latency of 156 ms across 2,540 simulated accusation transactions.</li><li>The evaluated control-plane defence blocked 369 of 369 valid attack cases; simulation runs included 200 vehicles over 865 seconds.</li></ul><h2>Project scope</h2><p>This is an undergraduate research report, not a peer-reviewed publication. All results are simulated; measured full-mode overhead and false rejections limit deployment claims.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -885,9 +885,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "shoezy",
-      "title": "Shoezy — Shoe E-Commerce",
+      "title": "Shoezy: Shoe E-Commerce",
       "summary": "A React, Express, and MongoDB storefront with product discovery, server-backed carts, stock-aware orders, and management screens.",
-      "description": "<p>Web Application degree project, January–May 2024.</p><h2>What I built</h2><ul><li>Built customer shopping and product-management flows across React and Express.</li><li>Implemented account, product, cart, order, and review workflows with Mongoose persistence.</li><li>Added stock-aware order creation, order history, and server-backed shopping carts.</li></ul><h2>Results</h2><ul><li>The source review identified 27 REST route definitions across five model areas.</li></ul><h2>Project scope</h2><p>No live deployment, user adoption, or benchmark results are recorded. The reviewed management routes do not establish server-enforced administrator roles.</p><h2>Source code</h2><ul><li><a href=\"https://github.com/Ashfaq-Riyaldeen/shoe-store-frontend.git\" target=\"_blank\" rel=\"noopener noreferrer\">Frontend repository</a></li><li><a href=\"https://github.com/Ashfaq-Riyaldeen/shoe-store-backend.git\" target=\"_blank\" rel=\"noopener noreferrer\">Backend repository</a></li></ul>",
+      "description": "<p>Web Application degree project, January to May 2024.</p><h2>What I built</h2><ul><li>Built customer shopping and product-management flows across React and Express.</li><li>Implemented account, product, cart, order, and review workflows with Mongoose persistence.</li><li>Added stock-aware order creation, order history, and server-backed shopping carts.</li></ul><h2>Results</h2><ul><li>The source review identified 27 REST route definitions across five model areas.</li></ul><h2>Project scope</h2><p>No live deployment, user adoption, or benchmark results are recorded. The reviewed management routes do not establish server-enforced administrator roles.</p><h2>Source code</h2><ul><li><a href=\"https://github.com/Ashfaq-Riyaldeen/shoe-store-frontend.git\" target=\"_blank\" rel=\"noopener noreferrer\">Frontend repository</a></li><li><a href=\"https://github.com/Ashfaq-Riyaldeen/shoe-store-backend.git\" target=\"_blank\" rel=\"noopener noreferrer\">Backend repository</a></li></ul>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -910,9 +910,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "articlehub",
-      "title": "ArticleHub — Blogging API & Delivery",
+      "title": "ArticleHub: Blogging API & Delivery",
       "summary": "A Spring Boot blogging API with MySQL persistence, authentication, and Jenkins-driven container delivery to an AWS project environment.",
-      "description": "<p>DevOps degree project, December 2024–March 2025.</p><h2>What I built</h2><ul><li>Built account, post, category, and comment APIs with JWT cookie authentication and role-based access.</li><li>Automated Maven packaging, Docker image publishing, and AWS EC2 Compose deployment through Jenkins.</li><li>Containerised the API and MySQL with readiness checks, persistent storage, and external configuration.</li><li>Documented infrastructure and host configuration through a separate Terraform and Ansible branch.</li></ul><h2>Results</h2><ul><li>The model supports eight blog categories and two roles.</li></ul><h2>Project scope</h2><p>The recorded automated application test is a context-load test; the active Jenkins packaging command skips tests. No broad coverage, production availability, or load results are claimed.</p>",
+      "description": "<p>DevOps degree project, December 2024 to March 2025.</p><h2>What I built</h2><ul><li>Built account, post, category, and comment APIs with JWT cookie authentication and role-based access.</li><li>Automated Maven packaging, Docker image publishing, and AWS EC2 Compose deployment through Jenkins.</li><li>Containerised the API and MySQL with readiness checks, persistent storage, and external configuration.</li><li>Documented infrastructure and host configuration through a separate Terraform and Ansible branch.</li></ul><h2>Results</h2><ul><li>The model supports eight blog categories and two roles.</li></ul><h2>Project scope</h2><p>The recorded automated application test is a context-load test; the active Jenkins packaging command skips tests. No broad coverage, production availability, or load results are claimed.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -941,7 +941,7 @@ export const seed: SiteContent = {
       "slug": "mushroom-classification",
       "title": "Mushroom Species Classification",
       "summary": "An image-classification experiment covering dataset exploration, augmentation, convolutional training, and multi-class evaluation.",
-      "description": "<p>AI degree project, December 2024–March 2025.</p><h2>What I built</h2><ul><li>Explored mushroom images photographed in natural habitats and prepared inputs through resizing and augmentation.</li><li>Trained convolutional classifiers and evaluated species predictions using classification reports and visual analysis.</li></ul><h2>Results</h2><ul><li>The recorded evaluation includes 3,513 images across 103 species.</li><li>One saved report records accuracy 0.96385 and macro F1 0.96491; these values identify that particular run.</li></ul><h2>Project scope</h2><p>An image-classification experiment without external field validation. It is not a tool for deciding whether a mushroom is safe to eat.</p>",
+      "description": "<p>AI degree project, December 2024 to March 2025.</p><h2>What I built</h2><ul><li>Explored mushroom images photographed in natural habitats and prepared inputs through resizing and augmentation.</li><li>Trained convolutional classifiers and evaluated species predictions using classification reports and visual analysis.</li></ul><h2>Results</h2><ul><li>The recorded evaluation includes 3,513 images across 103 species.</li><li>One saved report records accuracy 0.96385 and macro F1 0.96491; these values identify that particular run.</li></ul><h2>Project scope</h2><p>An image-classification experiment without external field validation. It is not a tool for deciding whether a mushroom is safe to eat.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -967,7 +967,7 @@ export const seed: SiteContent = {
       "slug": "insurance-cost-prediction",
       "title": "Medical Insurance Cost Prediction",
       "summary": "An exploratory and predictive analysis comparing linear regression and random forests for medical insurance charges.",
-      "description": "<p>Machine Learning degree project, June–October 2024.</p><h2>What I built</h2><ul><li>Explored demographic and health-related attributes, preprocessed data, and compared regression models.</li><li>Evaluated held-out predictions using RMSE, MAE, and R-squared.</li></ul><h2>Results</h2><ul><li>The dataset contains 1,338 records with six input features.</li><li>Random forest test RMSE was 4,827.65 versus 5,954.51 for linear regression; R-squared was 0.83 versus 0.74.</li></ul><h2>Project scope</h2><p>A dataset-based evaluation without an external validation set or a production prediction service. Feature relationships are not causal conclusions.</p>",
+      "description": "<p>Machine Learning degree project, June to October 2024.</p><h2>What I built</h2><ul><li>Explored demographic and health-related attributes, preprocessed data, and compared regression models.</li><li>Evaluated held-out predictions using RMSE, MAE, and R-squared.</li></ul><h2>Results</h2><ul><li>The dataset contains 1,338 records with six input features.</li><li>Random forest test RMSE was 4,827.65 versus 5,954.51 for linear regression; R-squared was 0.83 versus 0.74.</li></ul><h2>Project scope</h2><p>A dataset-based evaluation without an external validation set or a production prediction service. Feature relationships are not causal conclusions.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -993,7 +993,7 @@ export const seed: SiteContent = {
       "slug": "parallel-recommendation",
       "title": "Parallel Pearson Recommendation System",
       "summary": "Serial, threaded, distributed-memory, and GPU implementations of a Pearson-correlation recommender, compared on a shared synthetic workload.",
-      "description": "<p>High Performance Computing coursework, December 2025–April 2026.</p><h2>What I built</h2><ul><li>Implemented serial, shared-memory, distributed-memory, hybrid, and GPU versions of the same recommendation calculation.</li><li>Used a seeded synthetic ratings matrix to compare correctness and timings consistently.</li></ul><h2>Results</h2><ul><li>On the 1,000-user by 1,000-item benchmark, eight-thread OpenMP achieved a 6.26× speedup over the measured serial phases.</li><li>CUDA kernels took 0.2202 seconds on an RTX 3050, a reported 38.78× speedup for the measured phases.</li><li>Parallel outputs matched the serial implementation in the report’s correctness comparison.</li></ul><h2>Project scope</h2><p>Benchmarks ran on one node. Agreement with the serial implementation does not measure recommendation quality on real users.</p>",
+      "description": "<p>High Performance Computing coursework, December 2025 to April 2026.</p><h2>What I built</h2><ul><li>Implemented serial, shared-memory, distributed-memory, hybrid, and GPU versions of the same recommendation calculation.</li><li>Used a seeded synthetic ratings matrix to compare correctness and timings consistently.</li></ul><h2>Results</h2><ul><li>On the 1,000-user by 1,000-item benchmark, eight-thread OpenMP achieved a 6.26× speedup over the measured serial phases.</li><li>CUDA kernels took 0.2202 seconds on an RTX 3050, a reported 38.78× speedup for the measured phases.</li><li>Parallel outputs matched the serial implementation in the report’s correctness comparison.</li></ul><h2>Project scope</h2><p>Benchmarks ran on one node. Agreement with the serial implementation does not measure recommendation quality on real users.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1016,9 +1016,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "gland-segmentation-proposal",
-      "title": "DCAN Gland Segmentation — Proposal",
+      "title": "DCAN Gland Segmentation: Proposal",
       "summary": "A computer-vision proposal for a reproducible Deep Contour-Aware Network implementation and object-level evaluation on GlaS histology images.",
-      "description": "<p>Image Processing and Computer Vision coursework, December 2025–April 2026. Status: proposal.</p><h2>What I built</h2><ul><li>Specified a contour-aware gland-instance segmentation approach and a reproducible evaluation toolkit.</li><li>Planned evaluation against GlaS object-level measures using publicly labelled data.</li></ul><h2>Results</h2><ul><li>The proposal describes the 165-image GlaS collection and its 85 publicly labelled training images.</li></ul><h2>Project scope</h2><p>The supplied record is a proposal. No completed training run, model score, or achieved segmentation improvement is recorded.</p>",
+      "description": "<p>Image Processing and Computer Vision coursework, December 2025 to April 2026. Status: proposal.</p><h2>What I built</h2><ul><li>Specified a contour-aware gland-instance segmentation approach and a reproducible evaluation toolkit.</li><li>Planned evaluation against GlaS object-level measures using publicly labelled data.</li></ul><h2>Results</h2><ul><li>The proposal describes the 165-image GlaS collection and its 85 publicly labelled training images.</li></ul><h2>Project scope</h2><p>The supplied record is a proposal. No completed training run, model score, or achieved segmentation improvement is recorded.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1043,7 +1043,7 @@ export const seed: SiteContent = {
       "slug": "product-ordering-database",
       "title": "Product Ordering System Database",
       "summary": "A MySQL relational design for customers, products, carts, orders, payments, reviews, and fulfilment, with SQL query and tuning examples.",
-      "description": "<p>Database Systems coursework, January–May 2024.</p><h2>What I built</h2><ul><li>Analysed ordering requirements and designed the ER model, tables, and foreign-key relationships.</li><li>Wrote CRUD, view, join, aggregation, set-operation, nested-query, and transaction examples.</li><li>Compared query forms in the database-tuning report.</li></ul><h2>Results</h2><ul><li>The documented design includes eleven entity tables.</li></ul><h2>Project scope</h2><p>A database coursework design with sample records, not a deployed storefront or a production benchmark.</p>",
+      "description": "<p>Database Systems coursework, January to May 2024.</p><h2>What I built</h2><ul><li>Analysed ordering requirements and designed the ER model, tables, and foreign-key relationships.</li><li>Wrote CRUD, view, join, aggregation, set-operation, nested-query, and transaction examples.</li><li>Compared query forms in the database-tuning report.</li></ul><h2>Results</h2><ul><li>The documented design includes eleven entity tables.</li></ul><h2>Project scope</h2><p>A database coursework design with sample records, not a deployed storefront or a production benchmark.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1064,9 +1064,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "fitbody",
-      "title": "FitBody — Fitness & Progress App",
+      "title": "FitBody: Fitness & Progress App",
       "summary": "A Flutter app combining guided workouts, progress history, BMI calculation, nutrition reference data, and Firebase-backed profiles.",
-      "description": "<p>Mobile Application degree project, June–October 2024.</p><h2>What I built</h2><ul><li>Built onboarding, email/password authentication, session-aware routing, and a five-tab application shell.</li><li>Integrated guided exercise timers and saved completed workout progress in Firestore.</li><li>Implemented BMI, nutrition-reference, weekly-progress, and profile flows with loading states and error feedback.</li></ul><h2>Results</h2><ul><li>The app includes five main tabs, ten body-part categories, and six nutrition categories.</li></ul><h2>Project scope</h2><p>No app-store release, adoption figures, or automated test results are recorded. Personalised plans and offline synchronisation are outside the implemented scope.</p>",
+      "description": "<p>Mobile Application degree project, June to October 2024.</p><h2>What I built</h2><ul><li>Built onboarding, email/password authentication, session-aware routing, and a five-tab application shell.</li><li>Integrated guided exercise timers and saved completed workout progress in Firestore.</li><li>Implemented BMI, nutrition-reference, weekly-progress, and profile flows with loading states and error feedback.</li></ul><h2>Results</h2><ul><li>The app includes five main tabs, ten body-part categories, and six nutrition categories.</li></ul><h2>Project scope</h2><p>No app-store release, adoption figures, or automated test results are recorded. Personalised plans and offline synchronisation are outside the implemented scope.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1090,7 +1090,7 @@ export const seed: SiteContent = {
       "slug": "secure-sdvn",
       "title": "Secure SDVN Communication Prototype",
       "summary": "A network-security prototype for authenticated vehicle, roadside-unit, and controller communication using classical and post-quantum protocol paths.",
-      "description": "<p>Information Security degree project, December 2025–April 2026.</p><h2>What I built</h2><ul><li>Designed certificate-based identities, revocation checks, and authenticated vehicle-to-roadside handshakes.</li><li>Protected zone-key delivery, beacons, accusations, and forwarded messages with encryption, signatures, and evidence hashes.</li><li>Demonstrated normal message flows and rejection of replayed or modified messages and impersonation attempts.</li></ul><h2>Results</h2><ul><li>Terminal demonstrations cover accepted normal traffic and rejected attack cases.</li></ul><h2>Project scope</h2><p>A prototype demonstration with no production deployment, independent security audit, or recorded latency or throughput benchmark.</p>",
+      "description": "<p>Information Security degree project, December 2025 to April 2026.</p><h2>What I built</h2><ul><li>Designed certificate-based identities, revocation checks, and authenticated vehicle-to-roadside handshakes.</li><li>Protected zone-key delivery, beacons, accusations, and forwarded messages with encryption, signatures, and evidence hashes.</li><li>Demonstrated normal message flows and rejection of replayed or modified messages and impersonation attempts.</li></ul><h2>Results</h2><ul><li>Terminal demonstrations cover accepted normal traffic and rejected attack cases.</li></ul><h2>Project scope</h2><p>A prototype demonstration with no production deployment, independent security audit, or recorded latency or throughput benchmark.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1115,7 +1115,7 @@ export const seed: SiteContent = {
       "slug": "networked-tic-tac-toe",
       "title": "Networked Tic-Tac-Toe",
       "summary": "A Java Swing desktop game with two networked players, a central TCP server, synchronised turns, and shared session statistics.",
-      "description": "<p>Operating Systems and Networking degree project, December 2024–March 2025.</p><h2>What I built</h2><ul><li>Built the TCP server with per-client handlers and synchronised shared board state.</li><li>Defined messages for moves, turns, results, restarts, statistics, and session exit.</li><li>Implemented the Swing interface, background network listener, feedback, and game-result handling.</li></ul><h2>Results</h2><ul><li>Supports two concurrent player connections through one central server.</li></ul><h2>Project scope</h2><p>A desktop networking demonstration. Reconnection, encrypted transport, and complete malformed-command handling are not established by the source.</p>",
+      "description": "<p>Operating Systems and Networking degree project, December 2024 to March 2025.</p><h2>What I built</h2><ul><li>Built the TCP server with per-client handlers and synchronised shared board state.</li><li>Defined messages for moves, turns, results, restarts, statistics, and session exit.</li><li>Implemented the Swing interface, background network listener, feedback, and game-result handling.</li></ul><h2>Results</h2><ul><li>Supports two concurrent player connections through one central server.</li></ul><h2>Project scope</h2><p>A desktop networking demonstration. Reconnection, encrypted transport, and complete malformed-command handling are not established by the source.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1135,9 +1135,9 @@ export const seed: SiteContent = {
     },
     {
       "slug": "budgetbliss",
-      "title": "BudgetBliss — Personal Finance UI",
+      "title": "BudgetBliss: Personal Finance UI",
       "summary": "A browser-based finance interface for budgets, expense editing, balances, and example reports, built with HTML, CSS, and JavaScript.",
-      "description": "<p>Computer Engineering GUI mini project, August–November 2023. Frontend prototype.</p><h2>What I built</h2><ul><li>Built seven connected screens covering sign-in, dashboard, budgeting, transactions, reports, and supporting pages.</li><li>Implemented browser-side expense add, edit, and delete actions with updated totals.</li><li>Added bar and area charts using sample report data.</li></ul><h2>Results</h2><ul><li>Seven HTML screens, three expense actions, and two chart types.</li></ul><h2>Project scope</h2><p>The sign-in screen uses demo credentials. There is no backend, persistent budget storage, bank integration, or live transaction data.</p>",
+      "description": "<p>Computer Engineering GUI mini project, August to November 2023. Frontend prototype.</p><h2>What I built</h2><ul><li>Built seven connected screens covering sign-in, dashboard, budgeting, transactions, reports, and supporting pages.</li><li>Implemented browser-side expense add, edit, and delete actions with updated totals.</li><li>Added bar and area charts using sample report data.</li></ul><h2>Results</h2><ul><li>Seven HTML screens, three expense actions, and two chart types.</li></ul><h2>Project scope</h2><p>The sign-in screen uses demo credentials. There is no backend, persistent budget storage, bank integration, or live transaction data.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1160,7 +1160,7 @@ export const seed: SiteContent = {
       "slug": "laptop-store",
       "title": "Laptop Store Management System",
       "summary": "A C++ data-structures program for inventory updates, low-stock review, sorting, sales changes, and recent history.",
-      "description": "<p>Data Structures and Algorithms degree project, August–November 2023.</p><h2>What I built</h2><ul><li>Defined laptop records and linked-list operations for insertion, quantity changes, stock review, and sorting.</li><li>Added a queue for recent changes alongside an all-history view.</li></ul><h2>Results</h2><ul><li>The recent-history queue retains the latest 20 updates.</li></ul><h2>Project scope</h2><p>A data-structures demonstration without verified retail use, persistent storage, or performance measurements.</p>",
+      "description": "<p>Data Structures and Algorithms degree project, August to November 2023.</p><h2>What I built</h2><ul><li>Defined laptop records and linked-list operations for insertion, quantity changes, stock review, and sorting.</li><li>Added a queue for recent changes alongside an all-history view.</li></ul><h2>Results</h2><ul><li>The recent-history queue retains the latest 20 updates.</li></ul><h2>Project scope</h2><p>A data-structures demonstration without verified retail use, persistent storage, or performance measurements.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1181,7 +1181,7 @@ export const seed: SiteContent = {
       "slug": "rain-sensing-wiper",
       "title": "Automatic Rain-Sensing Wiper",
       "summary": "An Arduino prototype connecting a rain sensor, servo motor, and LCD, with simulation and a physical demonstration.",
-      "description": "<p>Embedded Systems Design coursework, December 2024–March 2025.</p><h2>What I built</h2><ul><li>Designed the sensor-to-controller-to-actuator flow and circuit connections.</li><li>Implemented rain detection, wiper actuation, and display feedback.</li><li>Demonstrated the design in Proteus and on physical hardware.</li></ul><h2>Results</h2><ul><li>The prototype uses one sensor, one controller, one servo, and a 16×2 LCD.</li></ul><h2>Project scope</h2><p>A laboratory prototype, not a vehicle-road deployment. Response time, durability, and safety improvements were not measured.</p>",
+      "description": "<p>Embedded Systems Design coursework, December 2024 to March 2025.</p><h2>What I built</h2><ul><li>Designed the sensor-to-controller-to-actuator flow and circuit connections.</li><li>Implemented rain detection, wiper actuation, and display feedback.</li><li>Demonstrated the design in Proteus and on physical hardware.</li></ul><h2>Results</h2><ul><li>The prototype uses one sensor, one controller, one servo, and a 16×2 LCD.</li></ul><h2>Project scope</h2><p>A laboratory prototype, not a vehicle-road deployment. Response time, durability, and safety improvements were not measured.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1204,7 +1204,7 @@ export const seed: SiteContent = {
       "slug": "bjt-amplifier",
       "title": "Common Emitter BJT Amplifier",
       "summary": "A transistor amplifier project covering component calculations, circuit simulation, PCB layout, assembly, and frequency-response analysis.",
-      "description": "<p>Electronics Project coursework, January–May 2024.</p><h2>What I built</h2><ul><li>Selected the transistor and calculated component values for the target voltage gain and bandwidth.</li><li>Created the schematic and PCB layout in Proteus and assembled a physical circuit.</li><li>Compared calculated and reported gain and frequency response.</li></ul><h2>Results</h2><ul><li>Reported input and output values imply gain 147.5 against a design target of 150.</li></ul><h2>Project scope</h2><p>Reported frequency-response figures come from simulation and analysis; a separately calibrated hardware bandwidth measurement is not established.</p>",
+      "description": "<p>Electronics Project coursework, January to May 2024.</p><h2>What I built</h2><ul><li>Selected the transistor and calculated component values for the target voltage gain and bandwidth.</li><li>Created the schematic and PCB layout in Proteus and assembled a physical circuit.</li><li>Compared calculated and reported gain and frequency response.</li></ul><h2>Results</h2><ul><li>Reported input and output values imply gain 147.5 against a design target of 150.</li></ul><h2>Project scope</h2><p>Reported frequency-response figures come from simulation and analysis; a separately calibrated hardware bandwidth measurement is not established.</p>",
       "coverUrl": null,
       "gallery": [],
       "tech": [
@@ -1225,7 +1225,7 @@ export const seed: SiteContent = {
   ],
   "publications": [
     {
-      "title": "FAZD-SDVN — Blockchain, ZKP and GNN–LLM Defence Framework",
+      "title": "FAZD-SDVN: Blockchain, ZKP and GNN–LLM Defence Framework",
       "authors": [
         "Ashfaq Riyaldeen"
       ],
@@ -1360,7 +1360,7 @@ export const seed: SiteContent = {
   ],
   "achievements": [
     {
-      "title": "Finalist — Code Aréna’25",
+      "title": "Finalist: Code Aréna’25",
       "description": "Finalist in Code Aréna’25, organised by IET On Campus KDU.",
       "date": "2025",
       "issuer": "IET On Campus KDU",
@@ -1368,7 +1368,7 @@ export const seed: SiteContent = {
       "category": "competition"
     },
     {
-      "title": "Finalist — J’pura CryptX 1.0",
+      "title": "Finalist: J’pura CryptX 1.0",
       "description": "Finalist in the J’pura CryptX 1.0 Hackathon.",
       "date": "2025",
       "issuer": "University of Sri Jayewardenepura",
@@ -1394,7 +1394,7 @@ export const seed: SiteContent = {
       "description": "Managed budgets and financial records during a three-year elected term. Led fundraising and oversaw the association’s financial transactions."
     },
     {
-      "organization": "IESL — Ruhuna Engineering Students Chapter",
+      "organization": "IESL: Ruhuna Engineering Students Chapter",
       "role": "Student Member",
       "startDate": "2024-04",
       "endDate": null,

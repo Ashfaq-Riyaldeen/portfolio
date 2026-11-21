@@ -12,13 +12,15 @@ import { useEffect, useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { Scrub } from "@/components/motion/scrub";
 import type { Stat } from "@/lib/content";
+import { statNumberFormat } from "@/lib/content/stat-format";
 
 function Counter({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const reduce = useReducedMotion();
   const mv = useMotionValue(0);
-  const rounded = useTransform(mv, (v) => Math.round(v).toLocaleString());
+  const format = statNumberFormat(value);
+  const rounded = useTransform(mv, (v) => format.format(v));
 
   useEffect(() => {
     if (!inView) return;
@@ -51,9 +53,9 @@ export function StatsClient({ stats }: { stats: Stat[] }) {
               aria-hidden
               className="absolute -top-10 left-1/2 size-24 -translate-x-1/2 rounded-full bg-primary/25 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
             />
-            <p className="text-gradient font-display text-4xl font-bold sm:text-5xl">
+            <p className="text-gradient flex flex-wrap items-baseline justify-center gap-x-1 font-display text-3xl font-bold sm:text-5xl">
               <Counter value={stat.value} />
-              {stat.suffix}
+              {stat.suffix && <span className="text-lg sm:text-2xl">{stat.suffix}</span>}
             </p>
             <p className="mt-2 font-mono text-xs uppercase tracking-widest text-subtle">
               {stat.label}

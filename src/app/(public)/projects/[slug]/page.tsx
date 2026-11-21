@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PlaceholderCover } from "@/components/ui/placeholder-cover";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { YouTubeEmbed } from "@/components/ui/youtube-embed";
 import { getProject, getProjects } from "@/lib/content";
@@ -66,14 +65,15 @@ export default async function ProjectPage({ params }: PageProps) {
         </p>
       </header>
 
-      {/* Media: demo video wins over cover image */}
-      <div className="mt-10">
-        {project.youtubeUrl ? (
+      {/* Optional media never reserves space when the project has none. */}
+      {(project.youtubeUrl || project.coverUrl) && <div data-project-media className="mt-10 space-y-6">
+        {project.youtubeUrl && (
           <YouTubeEmbed
             url={project.youtubeUrl}
-            title={`${project.title} — demo video`}
+            title={`${project.title}: demo video`}
           />
-        ) : project.coverUrl ? (
+        )}
+        {project.coverUrl && (
           <div className="relative aspect-video overflow-hidden rounded-2xl border border-line">
             <Image
               src={project.coverUrl}
@@ -84,14 +84,8 @@ export default async function ProjectPage({ params }: PageProps) {
               className="object-cover"
             />
           </div>
-        ) : (
-          <PlaceholderCover
-            seed={project.slug}
-            label={project.title}
-            className="aspect-video rounded-2xl border border-line"
-          />
         )}
-      </div>
+      </div>}
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_280px]">
         {/* Write-up + gallery */}
@@ -107,7 +101,7 @@ export default async function ProjectPage({ params }: PageProps) {
               <h2 className="mt-12 font-mono text-sm text-secondary">
                 {"// gallery"}
               </h2>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div data-project-gallery className="mt-5 grid gap-4 sm:grid-cols-2">
                 {project.gallery.map((image, i) => (
                   <div
                     key={image}

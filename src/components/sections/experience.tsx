@@ -15,7 +15,7 @@ export async function Experience({ config }: { config: SectionConfig }) {
   if (entries.length === 0) return null;
 
   const items: TimelineItem[] = entries.map((entry) => ({
-    period: `${formatMonth(entry.startDate)} — ${formatMonth(entry.endDate)}`,
+    period: `${formatMonth(entry.startDate)} to ${formatMonth(entry.endDate)}`,
     title: entry.role,
     subtitle: `${entry.company} · ${entry.location}`,
     badge: experienceLabels[entry.type],

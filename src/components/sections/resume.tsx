@@ -27,7 +27,7 @@ export async function Resume(_props: { config: SectionConfig }) {
                   Prefer the formal version?
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
-                  Everything on this site, condensed to one page — education,
+                  A concise overview of my education,
                   skills, projects, and experience.
                 </p>
               </div>
