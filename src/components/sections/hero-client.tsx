@@ -23,7 +23,11 @@ const container: Variants = {
  */
 const SCRAMBLE_CHARS = "01_/#$*+";
 
-export function HeroClient({ profile }: { profile: Profile }) {
+export function HeroClient({ profile, projectsHref, nextSection }: {
+  profile: Profile;
+  projectsHref: string;
+  nextSection: { id: string; label: string } | null;
+}) {
   const reduce = useReducedMotion();
   const [firstName, ...restName] = profile.name.split(" ");
   const status = profile.quickFacts.find(
@@ -262,16 +266,16 @@ export function HeroClient({ profile }: { profile: Profile }) {
           >
             <Magnetic>
               <a
-                href="#projects"
+                href={projectsHref}
                 className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 font-medium text-white shadow-lg shadow-primary/25 transition-shadow hover:shadow-primary/45"
               >
                 View My Work
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </a>
             </Magnetic>
-            <Magnetic>
+            {profile.resumeUrl && <Magnetic>
               <a
-                href={profile.resumeUrl ?? "#resume"}
+                href={profile.resumeUrl}
                 className="glass flex items-center gap-2 rounded-full px-7 py-3.5 font-medium text-foreground transition-colors hover:bg-white/10"
                 {...(profile.resumeUrl
                   ? { target: "_blank", rel: "noopener noreferrer" }
@@ -280,7 +284,7 @@ export function HeroClient({ profile }: { profile: Profile }) {
                 <Download className="size-4" />
                 Resume
               </a>
-            </Magnetic>
+            </Magnetic>}
           </motion.div>
 
           <motion.div
@@ -305,9 +309,9 @@ export function HeroClient({ profile }: { profile: Profile }) {
       </div>
 
       {/* Scroll cue */}
-      <motion.a
-        href="#about"
-        aria-label="Scroll to about section"
+      {nextSection && <motion.a
+        href={`#${nextSection.id}`}
+        aria-label={`Scroll to ${nextSection.label} section`}
         initial={{ opacity: 0 }}
         animate={{ opacity: introReady ? 1 : 0 }}
         transition={{ delay: 1.6, duration: 1 }}
@@ -325,7 +329,7 @@ export function HeroClient({ profile }: { profile: Profile }) {
             className="block h-2 w-1 rounded-full bg-secondary"
           />
         </span>
-      </motion.a>
+      </motion.a>}
     </section>
   );
 }
