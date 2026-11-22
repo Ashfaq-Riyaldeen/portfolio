@@ -88,7 +88,7 @@ export function Navbar({ links: sectionLinks, name }: NavbarProps) {
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
       >
-        <nav className="glass flex w-full max-w-4xl items-center justify-between rounded-full py-2 pl-5 pr-2">
+        <nav className="flex w-full max-w-4xl items-center justify-between rounded-full border border-line bg-surface py-2 pl-5 pr-2">
           <a
             href={href("top")}
             className="font-display text-lg font-bold tracking-tight"
