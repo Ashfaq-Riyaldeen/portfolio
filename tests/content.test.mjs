@@ -25,10 +25,9 @@ test("section navigation follows saved order and excludes hidden, empty, and dra
 test("homepage title, current portrait, and decimal highlights match the approved presentation", () => {
   assert.equal(seed.settings.siteTitle, "Ashfaq Riyaldeen");
   assert.deepEqual(seed.stats, [
-    {label:"Projects & Research", value:20, suffix:""},
-    {label:"Certifications", value:6, suffix:""},
+    {label:"Projects & Research", value:20, suffix:"+"},
     {label:"CGPA", value:3.77, suffix:"/4.0"},
-    {label:"Software Project Experience", value:1, suffix:"+ Years"},
+    {label:"Experience", value:1, suffix:"+ years"},
   ]);
   assert.equal(statNumberFormat(3.77).format(3.77), "3.77");
   assert.equal(statNumberFormat(3.77).format(1), "1.00");

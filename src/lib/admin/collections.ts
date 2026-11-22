@@ -193,7 +193,7 @@ export const COLLECTIONS: CollectionDef[] = [
   },
   {
     key: "skills", table: "skill_categories", label: "Skills", itemLabel: "category",
-    description: "Skill categories with per-skill proficiency levels.",
+    description: "Category cards and skill chips. Reorder categories to change their position on the site.",
     titleField: "name",
     reorderable: true, orderBy: bySortOrder,
     fields: [
@@ -202,8 +202,6 @@ export const COLLECTIONS: CollectionDef[] = [
         name: "skills", label: "Skills", type: "rows",
         subfields: [
           { name: "name", label: "Skill", type: "text", placeholder: "React" },
-          { name: "icon", label: "Icon (optional)", type: "text" },
-          { name: "level", label: "Level %", type: "number", placeholder: "85" },
         ],
       },
     ],

@@ -310,7 +310,10 @@ function mapEducation(r: EducationRow): EducationEntry {
 }
 
 function mapSkillCategory(r: SkillCategoryRow): SkillCategory {
-  return { name: r.name, skills: r.skills ?? [] };
+  return {
+    name: r.name,
+    skills: (r.skills ?? []).map((skill) => ({ ...skill, icon: skill.icon ?? null, level: skill.level ?? null })),
+  };
 }
 
 function mapProject(r: ProjectRow): Project {

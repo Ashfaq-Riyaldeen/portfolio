@@ -196,12 +196,7 @@ export const seed: SiteContent = {
     {
       "label": "Projects & Research",
       "value": 20,
-      "suffix": ""
-    },
-    {
-      "label": "Certifications",
-      "value": 6,
-      "suffix": ""
+      "suffix": "+"
     },
     {
       "label": "CGPA",
@@ -209,9 +204,9 @@ export const seed: SiteContent = {
       "suffix": "/4.0"
     },
     {
-      "label": "Software Project Experience",
+      "label": "Experience",
       "value": 1,
-      "suffix": "+ Years"
+      "suffix": "+ years"
     }
   ],
   "education": [
