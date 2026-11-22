@@ -40,6 +40,11 @@ Admin → **Profile**. Drop your photo into *Profile photo* and your CV PDF into
 Admin → **Messages**. Contact-form submissions land here. Click one to read it;
 use **Reply by email** to answer from your own mail app.
 
+### Edit Technical Skills
+Admin → **Skills**. Edit category names and add or remove skill names. The site
+shows these as compact category cards with skill chips. Reorder the categories
+to change their display order; percentage ratings are not used.
+
 ### Show, hide, or reorder sections
 Admin → **Sections**. Toggle any of the 20 sections on/off and drag to reorder,
 then press *Save changes*. The homepage, navigation, and footer follow this order.
@@ -76,7 +81,7 @@ Vercel rebuilds and ships it automatically in ~2 minutes.
 | Problem | Fix |
 |---|---|
 | Forgot the admin password | Supabase dashboard → Authentication → Users → your user → *Send password recovery* (or set a new password there directly). |
-| Site shows old placeholder text | Check whether the November 2026 content migration has been applied. `npm run dev:content` previews the updated snapshot locally; the normal site reads Supabase. See README.md for the release steps. |
+| Admin shows old content, fallback warnings, or a pending section migration | Follow [the SQL repair guide](supabase/ADMIN_REPAIR.md). The single repair file installs both missing database changes and the current content. |
 | Contact form says "wait a minute" | Anti-spam cooldown: one message per visitor per minute. Normal. |
 | Upload fails | Files must be reasonable (<50 MB); check you're still signed in to `/admin`. |
 | Locked out / something broke badly | The site itself keeps working — it never depends on the admin panel being healthy. Ask Claude Code to investigate. |

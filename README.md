@@ -24,8 +24,8 @@ Copy `.env.example` to `.env.local` and fill in the Supabase keys. Content is
 served from Supabase (with an automatic fallback to the local seed in
 `src/lib/content/seed.ts` if the database is unreachable). The database
 schema lives in `supabase/schema.sql` — paste it into the Supabase SQL Editor
-to set up a fresh project, then apply
-`supabase/migrations/20261121_refresh_portfolio.sql` for the curated content.
+to set up a fresh project, then follow [the admin repair guide](supabase/ADMIN_REPAIR.md)
+to load the current content and section controls.
 
 ## November 2026 content refresh
 
@@ -56,47 +56,26 @@ are ignored by Git.
 
 ### Apply to the existing site
 
-1. Retain an authenticated backup of the affected content tables, including drafts.
-   The latest local public snapshot is `.portfolio-backups/content-before-admin-refresh-2026-11-21.json`;
-   it excludes private drafts and messages and is not a substitute for that backup.
-   The generated rollback is `.portfolio-backups/rollback-content-2026-11-21.sql`.
-   Regenerate the migration against the authenticated backup immediately before
-   applying it, using `node --experimental-strip-types scripts/prepare-content-update.mjs <backup-path>`.
-2. Deploy this code to the existing Vercel project using the normal `npm run build`
-   command. This publishes the refreshed snapshot while migration is pending and
-   makes the new routes and packaged CV available. Ensure the
-   production `NEXT_PUBLIC_SITE_URL` uses the live domain and the preview override
-   is unset.
-3. Apply `supabase/migrations/20261121_refresh_portfolio.sql` using authenticated
-   Supabase SQL access. It runs in one transaction, adds project categories and
-   experience types, updates known records, unpublishes sample projects/posts, and
-   removes the identified sample awards, paper, and outdated counts. Messages,
-   users, uploads, and unrelated content are preserved. Highlight values support
-   decimals, including CGPA 3.77/4.0. Sample testimonials stay
-   stored but their section is hidden.
-   Then apply `supabase/migrations/20261121_admin_controls.sql`. This adds the
-   authenticated `save_section_layout(updates jsonb)` function, which saves the
-   complete visibility/order layout atomically and rejects malformed layouts.
-4. Redeploy the same code with a fresh build cache to regenerate the new project
-   routes, sitemap, and home content. Confirm `/`, `/projects`, all real project
-   routes, CV download, and the admin panel. Retired sample URLs should return 404.
-   Normal content reads revalidate every 60 seconds; admin saves invalidate the
-   shared content cache and the public layout with its nested pages. Admin checks
-   the same public data path without caching and reports fallback or local-preview
-   status instead of claiming those edits are already public.
+Follow [supabase/ADMIN_REPAIR.md](supabase/ADMIN_REPAIR.md). Run the complete
+`supabase/repair-admin-20261122.sql` file in your project's SQL Editor. It combines
+the missing schema, authenticated section-save function, and latest content update
+inside one transaction. It captures a private database-side content snapshot before
+editing records and preserves accounts, messages, uploads, and unrelated drafts.
 
-`npm run content:prepare` regenerates the SQL from the snapshot and the local
-pre-update backup, without connecting to the database. An alternative backup path
-may be passed directly to the script. Rerunning the migration restores this curated
-revision and can overwrite subsequent admin edits; review before reapplying.
+The repair includes the three current highlights: 20+ Projects & Research,
+3.77/4.0 CGPA, and 1+ years Experience. Repeating the repair skips content updates,
+protecting subsequent admin edits. Its companion rollback refuses to overwrite
+changes made after the repair.
 
-For rollback, apply the local rollback SQL and redeploy the previous Vercel version.
-The rollback restores the captured content while retaining the compatible additive
-schema. The migration was checked on an isolated PostgreSQL engine against the
-pre-update data, a repeated run, an exact content rollback, and an empty database.
+Use `npm run admin:prepare` to regenerate the repair package locally; it never
+connects to Supabase. The older `content:prepare` workflow and November 21 migrations
+are historical and should not be reapplied after this repair.
 
-Live application requires authenticated Supabase and deployment access; the public
-Supabase key in `.env.local` does not grant schema or administrative write access.
+The existing Vercel deployment uses `npm run build`. Keep
+`PORTFOLIO_CONTENT_SOURCE` unset there. Public reads revalidate every 60 seconds;
+admin saves invalidate the shared content cache and public layout immediately.
+The public key in `.env.local` cannot apply schema migrations; the repair must run
+through authenticated Supabase SQL access.
 
 ### Admin and presentation checks
 
@@ -109,6 +88,10 @@ Footer links and homepage sections share visibility, order, and content-availabi
 rules. Empty sections stay out of navigation until content is added. Project cover
 and gallery uploads appear only on detail pages; no media means no reserved image
 area. Existing video demos remain supported.
+
+Highlights use equal-height cards without individual scroll offsets. Skills use
+responsive category cards and skill chips; category ordering remains editable in
+admin. Legacy skill icon/level data is preserved but not displayed as percentages.
 
 ## Deploy
 
