@@ -113,7 +113,7 @@ export const SINGLETONS: Record<string, { table: string; label: string; descript
           { name: "platform", label: "Platform", type: "text", placeholder: "GitHub" },
           { name: "url", label: "URL", type: "text", placeholder: "https://github.com/…" },
         ],
-        hint: "Platforms with icons: GitHub, LinkedIn, X/Twitter, YouTube, Instagram, Facebook.",
+        hint: "Platforms with icons: GitHub, LinkedIn, X/Twitter, YouTube, Instagram, Facebook, LeetCode, HackerRank, ResearchGate, Medium. Names ignore capitalization, spaces, and hyphens.",
       },
     ],
   },
@@ -273,7 +273,7 @@ export const COLLECTIONS: CollectionDef[] = [
     titleField: "platform", subtitleField: "username",
     reorderable: true, orderBy: bySortOrder,
     fields: [
-      { name: "platform", label: "Platform", type: "text", required: true, placeholder: "GitHub" },
+      { name: "platform", label: "Platform", type: "text", required: true, placeholder: "GitHub", hint: "Brand logos: GitHub, LeetCode, HackerRank, ResearchGate, Medium. Names ignore capitalization, spaces, and hyphens." },
       { name: "username", label: "Username", type: "text", required: true },
       { name: "url", label: "Profile URL", type: "text", required: true },
     ],

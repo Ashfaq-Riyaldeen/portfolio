@@ -13,8 +13,6 @@ import { SocialIcon } from "@/components/ui/social-icon";
 import { getCodingProfiles, type SectionConfig } from "@/lib/content";
 
 const lucideIcons: Record<string, LucideIcon> = {
-  leetcode: Code,
-  hackerrank: Terminal,
   codeforces: Trophy,
   codewars: Code,
   codechef: Terminal,

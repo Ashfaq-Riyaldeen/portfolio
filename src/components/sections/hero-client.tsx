@@ -290,7 +290,7 @@ export function HeroClient({ profile, projectsHref, nextSection }: {
           <motion.div
             variants={item}
             custom={6}
-            className="mt-10 flex items-center gap-3"
+            className="mt-10 flex flex-wrap items-center gap-3"
           >
             {profile.socials.map((social) => (
               <a
